@@ -4,10 +4,22 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { LINKS, withUtm } from "@/lib/constants";
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export function Hero() {
   return (
-    <section className="relative w-full">
-      <div className="mx-auto flex min-h-[100svh] max-w-3xl flex-col justify-center px-6 py-24">
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: "easeOut", staggerChildren: 0.1 }}
+      variants={fadeUp}
+      className="relative w-full"
+    >
+      <div className="mx-auto flex min-h-[100svh] max-w-3xl flex-col justify-center px-6 py-20">
         <div
           className="rounded-2xl px-6 py-10 sm:px-10 sm:py-12"
           style={{
@@ -17,9 +29,8 @@ export function Hero() {
           }}
         >
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            variants={fadeUp}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-4xl font-bold leading-tight sm:text-5xl"
             style={{ color: "var(--text)" }}
           >
@@ -29,9 +40,8 @@ export function Hero() {
           </motion.h1>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            variants={fadeUp}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="mt-8 space-y-3 text-base sm:text-lg"
             style={{ color: "var(--text)" }}
           >
@@ -42,9 +52,8 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            variants={fadeUp}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="mt-10"
           >
             <Link
@@ -69,9 +78,8 @@ export function Hero() {
           </motion.div>
 
           <motion.blockquote
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+            variants={fadeUp}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="mx-auto mt-12 max-w-xl border-l-4 px-6 py-2 text-center leading-relaxed"
             style={{
               borderColor: "var(--accent-orange)",
@@ -82,10 +90,10 @@ export function Hero() {
             <p>別に、取って食べようというわけじゃありません。</p>
             <p>技術を深く身につけて、最小の努力でたくさん稼いで、</p>
             <p>その分を社会に貢献していきたい。</p>
-            <p>そんな同じ熱意を持てる仲間を、探しているだけでございます。</p>
+            <p>そんな同じ熱意を持てる仲間を、探しているだけです。</p>
           </motion.blockquote>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

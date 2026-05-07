@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   IconBrandX,
   IconNotebook,
@@ -17,7 +20,13 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="w-full px-6 py-12">
+    <motion.footer
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="w-full px-6 py-12"
+    >
       <div
         className="mx-auto max-w-3xl rounded-2xl px-6 py-10 sm:px-10"
         style={{
@@ -54,6 +63,6 @@ export function Footer() {
           © 2026 syam
         </p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

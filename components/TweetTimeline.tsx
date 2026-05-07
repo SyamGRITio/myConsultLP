@@ -8,6 +8,7 @@ import { TWEET_IDS } from "@/lib/constants";
 
 const AUTO_ADVANCE_MS = 5000;
 const VIRTUALIZE_RANGE = 2;
+const SWIPE_THRESHOLD = 50;
 
 export function TweetTimeline() {
   const count = TWEET_IDS.length;
@@ -27,7 +28,14 @@ export function TweetTimeline() {
   }, [paused, next]);
 
   return (
-    <section id="tweets" className="w-full px-6 py-20 sm:py-24">
+    <motion.section
+      id="tweets"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="w-full px-6 py-16 sm:py-20"
+    >
       <div
         className="mx-auto max-w-3xl rounded-2xl px-6 py-10 sm:px-10 sm:py-12"
         style={{
@@ -61,10 +69,19 @@ export function TweetTimeline() {
             style={{ height: 600 }}
           >
             <motion.div
-              className="flex h-full"
+              className="flex h-full cursor-grab touch-pan-y active:cursor-grabbing"
               style={{ width: `${count * 100}%` }}
               animate={{ x: `-${current * (100 / count)}%` }}
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragStart={() => setPaused(true)}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -SWIPE_THRESHOLD) next();
+                else if (info.offset.x > SWIPE_THRESHOLD) prev();
+                setPaused(false);
+              }}
             >
               {TWEET_IDS.map((id, i) => {
                 const visible = Math.abs(i - current) <= VIRTUALIZE_RANGE;
@@ -76,7 +93,7 @@ export function TweetTimeline() {
                     aria-hidden={i !== current}
                   >
                     {visible ? (
-                      <div data-theme="dark" className="tweet-container">
+                      <div data-theme="dark" className="tweet-container pointer-events-auto">
                         <Tweet id={id} />
                       </div>
                     ) : null}
@@ -136,6 +153,6 @@ export function TweetTimeline() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
