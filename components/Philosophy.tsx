@@ -67,10 +67,11 @@ export function Philosophy() {
       </div>
 
       <blockquote
-        className="mx-auto mt-16 max-w-xl border-l-4 px-6 py-2 text-center text-base leading-relaxed sm:text-lg"
+        className="mx-auto mt-16 max-w-xl border-l-4 px-6 py-2 text-center leading-relaxed"
         style={{
           borderColor: "var(--accent-orange)",
           color: "var(--text)",
+          fontSize: "1.25rem",
         }}
       >
         <p>楽して、技術は深く身につける。</p>

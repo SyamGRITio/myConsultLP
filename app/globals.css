@@ -44,12 +44,41 @@ body {
   color: var(--bg);
 }
 
+@keyframes scene-twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes scene-drift {
+  from { transform: translateX(-25%); }
+  to { transform: translateX(125%); }
+}
+
+@keyframes scene-shimmer {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1.5px); }
+}
+
+@keyframes scene-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes scene-steam {
+  0% { transform: translateY(0); opacity: 0.6; }
+  100% { transform: translateY(-25px); opacity: 0; }
+}
+
+@keyframes scene-window {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    animation-duration: 0.001ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
