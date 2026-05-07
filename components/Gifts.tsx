@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { IconFileText, IconWorld, IconBooks, IconBrandX } from "@tabler/icons-react";
+import {
+  IconFileText,
+  IconWorld,
+  IconBooks,
+  IconBrandX,
+  IconBrandLine,
+} from "@tabler/icons-react";
 import { Section } from "./Section";
 import { LINKS, withUtm } from "@/lib/constants";
 
@@ -9,20 +15,14 @@ const gifts = [
   {
     icon: IconFileText,
     title: "実務で効くAzure 7選（PDF）",
-    href: LINKS.azurePdf,
-    label: "PDFをダウンロード",
   },
   {
     icon: IconWorld,
     title: "BtoB大企業のAzure / 業務AI構築ガイド",
-    href: LINKS.azureGuide,
-    label: "サイトを見る",
   },
   {
     icon: IconBooks,
     title: "転職1年目に教えてほしかったキャッチアップサイト集",
-    href: LINKS.notionCatchup,
-    label: "Notionを開く",
   },
 ];
 
@@ -40,13 +40,10 @@ export function Gifts() {
       </h3>
 
       <div className="mt-10 space-y-4">
-        {gifts.map(({ icon: Icon, title, href, label }) => (
-          <Link
+        {gifts.map(({ icon: Icon, title }) => (
+          <div
             key={title}
-            href={withUtm(href, "gifts", "gift")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-start gap-4 rounded-lg border p-5 transition-colors"
+            className="flex items-start gap-4 rounded-lg border p-5"
             style={{
               backgroundColor: "var(--card)",
               borderColor: "var(--border)",
@@ -58,24 +55,40 @@ export function Gifts() {
               className="mt-1 shrink-0"
               style={{ color: "var(--accent-orange)" }}
             />
-            <div className="flex-1">
-              <p className="font-bold" style={{ color: "var(--text)" }}>
-                {title}
-              </p>
-              <p
-                className="mt-1 text-sm transition-colors group-hover:opacity-80"
-                style={{ color: "var(--accent-orange)" }}
-              >
-                {label} →
-              </p>
-            </div>
-          </Link>
+            <p className="font-bold" style={{ color: "var(--text)" }}>
+              {title}
+            </p>
+          </div>
         ))}
+      </div>
+
+      <p
+        className="mt-10 text-sm leading-relaxed"
+        style={{ color: "var(--text-secondary)" }}
+      >
+        LINEに登録して「資料ください」と一言もらえたら、その場で送ります。押し付けはしません。
+      </p>
+
+      <div className="mt-6">
+        <Link
+          href={withUtm(LINKS.line, "gifts", "cta")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-base font-bold transition-transform hover:scale-[1.02]"
+          style={{
+            backgroundColor: "var(--accent-orange)",
+            color: "var(--bg)",
+            boxShadow: "0 8px 24px -8px rgba(244, 162, 107, 0.4)",
+          }}
+        >
+          <IconBrandLine size={20} stroke={2} />
+          LINEに登録する
+        </Link>
       </div>
 
       <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          読んだ代わりに、Xで繋がってくれたら嬉しいです。仲良くしましょう。
+          Xで繋がってくれたら嬉しいです。仲良くしましょう。
         </p>
         <Link
           href={withUtm(LINKS.x, "gifts", "social")}

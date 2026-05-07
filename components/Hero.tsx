@@ -60,7 +60,7 @@ export function Hero() {
           className="mt-10"
         >
           <Link
-            href={withUtm(LINKS.timerex, "hero", "cta")}
+            href={withUtm(LINKS.line, "hero", "cta")}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block rounded-full px-8 py-4 text-base font-bold transition-transform hover:scale-[1.02]"

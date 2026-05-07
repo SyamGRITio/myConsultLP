@@ -11,11 +11,10 @@ export function Flow() {
         className="mt-8 space-y-4 text-base leading-relaxed"
         style={{ color: "var(--text)" }}
       >
-        <p>予約フォームから、時間を選んでください。</p>
+        <p>LINEに登録して、話したいタイミングで一言ください。</p>
         <p>
-          対面希望なら、山手線の駅をひとつ教えてくれれば、近くのカフェをこちらで選びます。
+          オンラインで話したい人はLINEで、対面希望なら山手線の駅をひとつ教えてくれれば、近くのカフェをこちらで選びます。
         </p>
-        <p>オンライン希望なら、LINEでつなぎます。</p>
         <p className="pt-4" style={{ color: "var(--accent-orange)" }}>
           ラフでいきましょう。
         </p>

@@ -1,14 +1,10 @@
 export const LINKS = {
   line: "https://line.me/R/ti/p/@178ssybt",
-  timerex: "https://timerex.net/s/syam_nihick",
   x: "https://x.com/syam_nihick",
   note: "https://note.com/syam_grit",
   zenn: "https://zenn.dev/syam_nihick",
   instagram: "https://www.instagram.com/syam_gritio/",
   github: "https://github.com/SyamGRITio",
-  azureGuide: "https://syamgritio.github.io/azure-foundry-btob-uplift/",
-  azurePdf: "#",
-  notionCatchup: "#",
 } as const;
 
 export function withUtm(
