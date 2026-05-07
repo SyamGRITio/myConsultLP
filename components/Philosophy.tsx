@@ -47,7 +47,7 @@ export function Philosophy() {
         {beliefs.map((b) => (
           <div key={b.num} className="border-l-2 pl-6" style={{ borderColor: "var(--accent-orange)" }}>
             <div
-              className="font-mono text-sm"
+              className="font-pixel text-2xl"
               style={{ color: "var(--accent-orange)" }}
             >
               {b.num}

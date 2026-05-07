@@ -44,6 +44,21 @@ body {
   color: var(--bg);
 }
 
+img {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+svg {
+  shape-rendering: crispEdges;
+}
+
+.font-pixel {
+  font-family: var(--font-pixel), "Noto Sans JP", monospace;
+  letter-spacing: 0.02em;
+}
+
 @keyframes scene-twinkle {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 0.9; }

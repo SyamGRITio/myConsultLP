@@ -26,7 +26,7 @@ export function About() {
             }}
           >
             <div
-              className="font-mono text-xl font-bold sm:text-3xl"
+              className="font-pixel text-3xl font-bold sm:text-5xl"
               style={{ color: "var(--accent-orange)" }}
             >
               {s.value}

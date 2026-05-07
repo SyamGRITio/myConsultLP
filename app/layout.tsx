@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
+import { Noto_Sans_JP, JetBrains_Mono, VT323 } from "next/font/google";
 import "./globals.css";
 import { ParallaxBackground } from "@/components/ParallaxBackground";
 
@@ -14,6 +14,13 @@ const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["500", "700"],
   variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
+const vt323 = VT323({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-pixel",
   display: "swap",
 });
 
@@ -50,7 +57,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ja" className={`${notoSansJp.variable} ${jetBrainsMono.variable}`}>
+    <html
+      lang="ja"
+      className={`${notoSansJp.variable} ${jetBrainsMono.variable} ${vt323.variable}`}
+    >
       <body>
         <ParallaxBackground />
         {children}
