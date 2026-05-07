@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0E0A1F;
+  --color-card: #1A1233;
+  --color-border: #2B1B5E;
+  --color-accent-purple: #4B2E83;
+  --color-accent-pink: #E94B8B;
+  --color-accent-orange: #F4A26B;
+  --color-text: #F4F0E0;
+  --color-text-secondary: #9C8FB8;
+
+  --font-sans: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #0E0A1F;
+  --card: #1A1233;
+  --border: #2B1B5E;
+  --accent-purple: #4B2E83;
+  --accent-pink: #E94B8B;
+  --accent-orange: #F4A26B;
+  --text: #F4F0E0;
+  --text-secondary: #9C8FB8;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent-orange);
+  color: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.tweet-container {
+  --tweet-container-margin: 0 auto;
+  --tweet-font-family: var(--font-sans);
+  --tweet-bg-color: var(--card);
+  --tweet-bg-color-hover: var(--card);
+  --tweet-color-blue-primary: var(--accent-orange);
+  --tweet-color-blue-primary-hover: var(--accent-pink);
+  --tweet-color-blue-secondary: var(--text-secondary);
+  --tweet-color-blue-secondary-hover: rgba(244, 162, 107, 0.1);
+  --tweet-border: 1px solid var(--border);
+  --tweet-font-color: var(--text);
+  --tweet-font-color-secondary: var(--text-secondary);
+  --tweet-quoted-bg-color-hover: rgba(75, 46, 131, 0.2);
+}
