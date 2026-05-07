@@ -1,68 +1,34 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { useCallback, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Tweet } from "react-tweet";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { TWEET_IDS } from "@/lib/constants";
 
-function TweetCard({
-  id,
-  index,
-  total,
-  progress,
-}: {
-  id: string;
-  index: number;
-  total: number;
-  progress: MotionValue<number>;
-}) {
-  const start = index / total;
-  const end = (index + 1) / total;
-  const fade = 0.5 / total;
-
-  const opacity = useTransform(
-    progress,
-    [start - fade, start, end, end + fade],
-    [0, 1, 1, 0],
-  );
-  const scale = useTransform(
-    progress,
-    [start - fade, start, end, end + fade],
-    [0.95, 1, 1, 0.95],
-  );
-  const y = useTransform(
-    progress,
-    [start - fade, start, end, end + fade],
-    [20, 0, 0, -20],
-  );
-
-  return (
-    <motion.div
-      style={{ opacity, scale, y }}
-      className="absolute inset-x-0 mx-auto w-full max-w-md px-6"
-    >
-      <div data-theme="dark" className="tweet-container">
-        <Tweet id={id} />
-      </div>
-    </motion.div>
-  );
-}
+const AUTO_ADVANCE_MS = 5000;
+const VIRTUALIZE_RANGE = 2;
 
 export function TweetTimeline() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
+  const count = TWEET_IDS.length;
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const next = useCallback(() => setCurrent((i) => (i + 1) % count), [count]);
+  const prev = useCallback(
+    () => setCurrent((i) => (i - 1 + count) % count),
+    [count],
+  );
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(next, AUTO_ADVANCE_MS);
+    return () => clearInterval(t);
+  }, [paused, next]);
 
   return (
-    <section
-      ref={sectionRef}
-      id="tweets"
-      className="relative w-full px-6"
-      style={{ minHeight: `${TWEET_IDS.length * 50}vh` }}
-    >
-      <div className="mx-auto max-w-3xl pt-20">
+    <section id="tweets" className="w-full px-6 py-20 sm:py-24">
+      <div className="mx-auto max-w-3xl">
         <h2 className="text-2xl font-bold sm:text-3xl">
           Twitterは、地味にずっと続けてきました
         </h2>
@@ -75,19 +41,92 @@ export function TweetTimeline() {
           </p>
           <p>軌跡を、置いておきます。</p>
         </div>
-      </div>
 
-      <div className="sticky top-0 mt-12 flex h-screen items-center justify-center">
-        <div className="relative w-full">
-          {TWEET_IDS.map((id, i) => (
-            <TweetCard
-              key={id}
-              id={id}
-              index={i}
-              total={TWEET_IDS.length}
-              progress={scrollYProgress}
-            />
-          ))}
+        <div
+          className="relative mt-12"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}
+        >
+          <div
+            className="relative mx-auto w-full max-w-md overflow-hidden"
+            style={{ height: 600 }}
+          >
+            <motion.div
+              className="flex h-full"
+              style={{ width: `${count * 100}%` }}
+              animate={{ x: `-${current * (100 / count)}%` }}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            >
+              {TWEET_IDS.map((id, i) => {
+                const visible = Math.abs(i - current) <= VIRTUALIZE_RANGE;
+                return (
+                  <div
+                    key={id}
+                    className="h-full shrink-0 overflow-y-auto px-2"
+                    style={{ width: `${100 / count}%` }}
+                    aria-hidden={i !== current}
+                  >
+                    {visible ? (
+                      <div data-theme="dark" className="tweet-container">
+                        <Tweet id={id} />
+                      </div>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </motion.div>
+          </div>
+
+          <button
+            type="button"
+            onClick={prev}
+            aria-label="前のツイート"
+            className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full border p-2 transition-transform hover:scale-105 sm:-left-4"
+            style={{
+              backgroundColor: "var(--card)",
+              borderColor: "var(--border)",
+              color: "var(--text)",
+            }}
+          >
+            <IconChevronLeft size={20} stroke={2} />
+          </button>
+          <button
+            type="button"
+            onClick={next}
+            aria-label="次のツイート"
+            className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full border p-2 transition-transform hover:scale-105 sm:-right-4"
+            style={{
+              backgroundColor: "var(--card)",
+              borderColor: "var(--border)",
+              color: "var(--text)",
+            }}
+          >
+            <IconChevronRight size={20} stroke={2} />
+          </button>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
+            {TWEET_IDS.map((id, i) => {
+              const active = i === current;
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setCurrent(i)}
+                  aria-label={`ツイート ${i + 1} へ`}
+                  aria-current={active}
+                  className="h-2 rounded-full transition-all"
+                  style={{
+                    width: active ? 24 : 8,
+                    backgroundColor: active
+                      ? "#F4A26B"
+                      : "var(--border)",
+                  }}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
