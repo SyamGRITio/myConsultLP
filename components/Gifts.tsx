@@ -113,7 +113,7 @@ export function Gifts() {
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <Link
-          href={withUtm(LINKS.xDm, "gifts", "dm")}
+          href={withUtm(LINKS.x, "gifts", "dm")}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-transform hover:scale-[1.02]"

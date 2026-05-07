@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { ParallaxBackground } from "@/components/ParallaxBackground";
 
 const notoSansJp = Noto_Sans_JP({
   subsets: ["latin"],
@@ -16,15 +17,16 @@ const jetBrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const description =
+  "月給14万から始めて、毎年100万ずつ年収を上げてきた。今では月単価101万＋α。たぶん、再現できます。";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://lp.syam-gritio.com"),
   title: "付加価値、一緒に上げませんか。 | syam",
-  description:
-    "月給14万から始めて、毎年100万ずつ年収を上げてきた。借金300万を返して、資格を30個取った。たぶん、再現できます。",
+  description,
   openGraph: {
     title: "付加価値、一緒に上げませんか。 | syam",
-    description:
-      "月給14万から始めて、毎年100万ずつ年収を上げてきた。たぶん、再現できます。",
+    description,
     type: "website",
     locale: "ja_JP",
     url: "https://lp.syam-gritio.com",
@@ -33,8 +35,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "付加価値、一緒に上げませんか。 | syam",
-    description:
-      "月給14万から始めて、毎年100万ずつ年収を上げてきた。たぶん、再現できます。",
+    description,
     creator: "@syam_nihick",
   },
 };
@@ -50,7 +51,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja" className={`${notoSansJp.variable} ${jetBrainsMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <ParallaxBackground />
+        {children}
+      </body>
     </html>
   );
 }

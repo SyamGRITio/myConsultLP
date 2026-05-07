@@ -41,20 +41,6 @@ const outcomes = [
 export function Philosophy() {
   return (
     <Section id="philosophy">
-      <blockquote
-        className="mx-auto mb-16 max-w-xl border-l-4 px-6 py-2 text-center leading-relaxed"
-        style={{
-          borderColor: "var(--accent-orange)",
-          color: "var(--text)",
-          fontSize: "1.25rem",
-        }}
-      >
-        <p>別に、取って食べようというわけじゃありません。</p>
-        <p>技術を深く身につけて、最小の努力でたくさん稼いで、</p>
-        <p>その分を社会に貢献していきたい。</p>
-        <p>そんな同じ熱意を持てる仲間を、探しているだけでございます。</p>
-      </blockquote>
-
       <h2 className="text-2xl font-bold sm:text-3xl">3つだけ、信じていること</h2>
 
       <div className="mt-12 space-y-10">

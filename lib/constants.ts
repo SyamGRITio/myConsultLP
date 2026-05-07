@@ -1,7 +1,6 @@
 export const LINKS = {
   line: "https://line.me/R/ti/p/@178ssybt",
   x: "https://x.com/syam_nihick",
-  xDm: "https://x.com/messages/compose?recipient_id=syam_nihick",
   note: "https://note.com/syam_grit",
   zenn: "https://zenn.dev/syam_nihick",
   instagram: "https://www.instagram.com/syam_gritio/",

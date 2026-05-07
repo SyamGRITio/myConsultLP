@@ -19,7 +19,16 @@ export function Section({ id, className = "", children }: Props) {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`w-full px-6 py-20 sm:py-24 ${className}`}
     >
-      <div className="mx-auto max-w-3xl">{children}</div>
+      <div
+        className="mx-auto max-w-3xl rounded-2xl px-6 py-10 sm:px-10 sm:py-12"
+        style={{
+          backgroundColor: "rgba(14, 10, 31, 0.45)",
+          backdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(4px)",
+        }}
+      >
+        {children}
+      </div>
     </motion.section>
   );
 }

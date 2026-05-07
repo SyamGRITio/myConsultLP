@@ -17,11 +17,15 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer
-      className="w-full border-t px-6 py-12"
-      style={{ borderColor: "var(--border)" }}
-    >
-      <div className="mx-auto max-w-3xl">
+    <footer className="w-full px-6 py-12">
+      <div
+        className="mx-auto max-w-3xl rounded-2xl px-6 py-10 sm:px-10"
+        style={{
+          backgroundColor: "rgba(14, 10, 31, 0.45)",
+          backdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(4px)",
+        }}
+      >
         <p className="text-sm leading-relaxed" style={{ color: "var(--text)" }}>
           ここで発信し続けています。
         </p>
