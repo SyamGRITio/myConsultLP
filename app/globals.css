@@ -50,10 +50,6 @@ img {
   image-rendering: crisp-edges;
 }
 
-svg {
-  shape-rendering: crispEdges;
-}
-
 .font-pixel {
   font-family: var(--font-pixel), "Noto Sans JP", monospace;
   letter-spacing: 0.02em;

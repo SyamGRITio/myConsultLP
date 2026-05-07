@@ -24,9 +24,9 @@ export function CTA() {
       <div
         className="mx-auto max-w-3xl rounded-2xl px-6 py-12 text-center sm:px-10 sm:py-14"
         style={{
-          backgroundColor: "rgba(14, 10, 31, 0.45)",
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
+          backgroundColor: "rgba(14, 10, 31, 0.5)",
+          backdropFilter: "blur(2px)",
+          WebkitBackdropFilter: "blur(2px)",
         }}
       >
         <motion.h2
