@@ -35,9 +35,10 @@ export function Footer() {
           WebkitBackdropFilter: "blur(2px)",
         }}
       >
-        <p className="text-sm leading-relaxed" style={{ color: "var(--text)" }}>
-          ここで発信し続けています。
-        </p>
+        <div className="space-y-2 text-sm leading-relaxed" style={{ color: "var(--text)" }}>
+          <p>最近、自分と同じ境遇だった人に情報を届けたい欲があふれてます。</p>
+          <p>そこに届けるのが難しいけど、緩く、根気強く、これらで発信し続けます。</p>
+        </div>
 
         <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
           {socials.map(({ icon: Icon, label, href }) => (
