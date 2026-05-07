@@ -36,7 +36,7 @@ export function Gifts() {
         className="mt-4 text-lg sm:text-xl"
         style={{ color: "var(--text-secondary)" }}
       >
-        良かったら、持って帰ってください
+        持ち帰り方は、3ステップ
       </h3>
 
       <div className="mt-10 space-y-4">
@@ -62,27 +62,45 @@ export function Gifts() {
         ))}
       </div>
 
-      <p
-        className="mt-10 text-sm leading-relaxed"
-        style={{ color: "var(--text-secondary)" }}
-      >
-        LINEに登録して「資料ください」と一言もらえたら、その場で送ります。押し付けはしません。
-      </p>
+      <ol className="mt-10 space-y-3">
+        {[
+          "LINEを友だち追加",
+          "「資料ください」と送信",
+          "その場でPDF・記事リンクが届きます",
+        ].map((step, i) => (
+          <li
+            key={i}
+            className="flex items-start gap-3 text-sm sm:text-base"
+            style={{ color: "var(--text)" }}
+          >
+            <span
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-mono text-xs font-bold"
+              style={{
+                backgroundColor: "var(--accent-orange)",
+                color: "var(--bg)",
+              }}
+            >
+              {i + 1}
+            </span>
+            <span className="pt-0.5">{step}</span>
+          </li>
+        ))}
+      </ol>
 
-      <div className="mt-6">
+      <div className="mt-8">
         <Link
           href={withUtm(LINKS.line, "gifts", "cta")}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-base font-bold transition-transform hover:scale-[1.02]"
           style={{
-            backgroundColor: "var(--accent-orange)",
-            color: "var(--bg)",
-            boxShadow: "0 8px 24px -8px rgba(244, 162, 107, 0.4)",
+            backgroundColor: "#F4A26B",
+            color: "#0E0A1F",
+            boxShadow: "0 8px 24px -8px rgba(244, 162, 107, 0.5)",
           }}
         >
           <IconBrandLine size={20} stroke={2} />
-          LINEに登録する
+          LINEを友だち追加して資料を受け取る
         </Link>
       </div>
 

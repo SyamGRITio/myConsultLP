@@ -17,7 +17,7 @@ const beliefs = [
     title: "楽して稼ぐための、努力をする",
     body: [
       "楽したいから努力しない、じゃない。楽したいから、努力する。",
-      "最低限の努力で這い上がる方法を、ずっと探してきました。",
+      "広く浅く全部追いかけるより、お金が動く方向に狭く深くベットした方が、結果的に最小の努力で大きく届く。",
       "「才能でしょ？」で済ませない。再現できます。",
     ],
   },
@@ -65,6 +65,18 @@ export function Philosophy() {
           </div>
         ))}
       </div>
+
+      <blockquote
+        className="mx-auto mt-16 max-w-xl border-l-4 px-6 py-2 text-center text-base leading-relaxed sm:text-lg"
+        style={{
+          borderColor: "var(--accent-orange)",
+          color: "var(--text)",
+        }}
+      >
+        <p>楽して、技術は深く身につける。</p>
+        <p>最小の努力でたくさん稼いで、その分を社会に返す。</p>
+        <p>同じ熱量でやれる仲間を、探しています。</p>
+      </blockquote>
 
       <div className="mt-14">
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
