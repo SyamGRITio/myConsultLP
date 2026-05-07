@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { IconBrandLine } from "@tabler/icons-react";
 import { Section } from "./Section";
 import { LINKS, withUtm } from "@/lib/constants";
@@ -10,15 +9,6 @@ export function CTA() {
   return (
     <Section id="cta">
       <div className="flex flex-col items-center text-center">
-        <Image
-          src="/syama-pixel-character.png"
-          alt="syam"
-          width={120}
-          height={120}
-          className="mb-6"
-          style={{ imageRendering: "pixelated" }}
-        />
-
         <h2 className="text-2xl font-bold sm:text-3xl">
           話したい人は、こちらから
         </h2>

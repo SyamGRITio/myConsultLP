@@ -37,9 +37,6 @@ export const metadata: Metadata = {
       "月給14万から始めて、毎年100万ずつ年収を上げてきた。たぶん、再現できます。",
     creator: "@syam_nihick",
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 export const viewport: Viewport = {
