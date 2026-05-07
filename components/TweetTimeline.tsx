@@ -30,7 +30,7 @@ export function TweetTimeline() {
     <section id="tweets" className="w-full px-6 py-20 sm:py-24">
       <div className="mx-auto max-w-3xl">
         <h2 className="text-2xl font-bold sm:text-3xl">
-          Twitterは、地味にずっと続けてきました
+          Twitter/Xは、地味にずっと続けてきました
         </h2>
         <div
           className="mt-6 space-y-3 text-base leading-relaxed sm:text-lg"

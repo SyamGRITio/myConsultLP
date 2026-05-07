@@ -23,7 +23,7 @@ export function Footer() {
     >
       <div className="mx-auto max-w-3xl">
         <p className="text-sm leading-relaxed" style={{ color: "var(--text)" }}>
-          ここで発信し続けてます。LP閉じても、また会いましょう。
+          ここで発信し続けています。
         </p>
 
         <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3">

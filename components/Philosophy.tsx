@@ -25,7 +25,8 @@ const beliefs = [
     num: "03",
     title: "駆け出しでも、理解すれば付加価値は上がる",
     body: [
-      "AD、Azure、運用設計。誰もが避けるニッチを掴んだら、未経験でも単価は跳ねました。",
+      "需要があるのに、人が足りていない領域。AD、Azure、運用設計。",
+      "そういう場所に身を置いたら、未経験でも単価は跳ねました。",
       "手を動かし続ければ、想像より早く来ます。",
     ],
   },
@@ -40,6 +41,20 @@ const outcomes = [
 export function Philosophy() {
   return (
     <Section id="philosophy">
+      <blockquote
+        className="mx-auto mb-16 max-w-xl border-l-4 px-6 py-2 text-center leading-relaxed"
+        style={{
+          borderColor: "var(--accent-orange)",
+          color: "var(--text)",
+          fontSize: "1.25rem",
+        }}
+      >
+        <p>別に、取って食べようというわけじゃありません。</p>
+        <p>技術を深く身につけて、最小の努力でたくさん稼いで、</p>
+        <p>その分を社会に貢献していきたい。</p>
+        <p>そんな同じ熱意を持てる仲間を、探しているだけでございます。</p>
+      </blockquote>
+
       <h2 className="text-2xl font-bold sm:text-3xl">3つだけ、信じていること</h2>
 
       <div className="mt-12 space-y-10">
@@ -65,19 +80,6 @@ export function Philosophy() {
           </div>
         ))}
       </div>
-
-      <blockquote
-        className="mx-auto mt-16 max-w-xl border-l-4 px-6 py-2 text-center leading-relaxed"
-        style={{
-          borderColor: "var(--accent-orange)",
-          color: "var(--text)",
-          fontSize: "1.25rem",
-        }}
-      >
-        <p>楽して、技術は深く身につける。</p>
-        <p>最小の努力でたくさん稼いで、その分を社会に返す。</p>
-        <p>同じ熱量でやれる仲間を、探しています。</p>
-      </blockquote>
 
       <div className="mt-14">
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>

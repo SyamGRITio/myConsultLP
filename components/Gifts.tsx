@@ -87,7 +87,7 @@ export function Gifts() {
         ))}
       </ol>
 
-      <div className="mt-8">
+      <div className="mt-8 flex flex-wrap items-center gap-3">
         <Link
           href={withUtm(LINKS.line, "gifts", "cta")}
           target="_blank"
@@ -104,21 +104,36 @@ export function Gifts() {
         </Link>
       </div>
 
-      <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          Xで繋がってくれたら嬉しいです。仲良くしましょう。
-        </p>
+      <p
+        className="mt-8 text-sm leading-relaxed"
+        style={{ color: "var(--text-secondary)" }}
+      >
+        LINEが嫌な方は、XのDMでも気軽にどうぞ。資料も相談も、なんでも受け付けてます。
+      </p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3">
         <Link
-          href={withUtm(LINKS.x, "gifts", "social")}
+          href={withUtm(LINKS.xDm, "gifts", "dm")}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-transform hover:scale-[1.02]"
           style={{
             borderColor: "var(--border)",
+            backgroundColor: "var(--card)",
             color: "var(--text)",
           }}
         >
           <IconBrandX size={16} stroke={1.5} />
+          XのDMで連絡する
+        </Link>
+        <Link
+          href={withUtm(LINKS.x, "gifts", "social")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-70"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          <IconBrandX size={14} stroke={1.5} />
           @syam_nihick
         </Link>
       </div>

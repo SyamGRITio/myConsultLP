@@ -3,18 +3,18 @@
 import { Section } from "./Section";
 
 const topics = [
+  "仕事の立ち回り（先回りの動き方）",
+  "今の時代の技術力のつけ方",
+  "AIを活用して成り上がる方法",
+  "単価の上げ方",
   "キャリアの棚卸し",
-  "Azure × 単価アップ",
-  "運用保守からの抜け道",
-  "フリーランス前夜の準備",
-  "お金に強いエンジニアになる方法",
-  "副業・法人化・資産運用",
+  "お金まわりの整え方（フリーランス前夜・副業・法人化・資産運用）",
 ];
 
 export function TalkAbout() {
   return (
     <Section id="talk-about">
-      <h2 className="text-2xl font-bold sm:text-3xl">話せそうなこと</h2>
+      <h2 className="text-2xl font-bold sm:text-3xl">気軽に話せること</h2>
 
       <div className="mt-8 flex flex-wrap gap-3">
         {topics.map((t) => (
@@ -31,6 +31,13 @@ export function TalkAbout() {
           </span>
         ))}
       </div>
+
+      <p
+        className="mt-8 text-base leading-relaxed"
+        style={{ color: "var(--text)" }}
+      >
+        とにかく、一緒に頑張りましょう。
+      </p>
     </Section>
   );
 }

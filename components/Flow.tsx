@@ -15,9 +15,8 @@ export function Flow() {
         <p>
           オンラインで話したい人はLINEで、対面希望なら山手線の駅をひとつ教えてくれれば、近くのカフェをこちらで選びます。
         </p>
-        <p className="pt-4" style={{ color: "var(--accent-orange)" }}>
-          ラフでいきましょう。
-        </p>
+        <p className="pt-4">XのDMでも全然OKです。何でもいいので気軽にどうぞ。</p>
+        <p style={{ color: "var(--accent-orange)" }}>ラフでいきましょう。</p>
       </div>
     </Section>
   );

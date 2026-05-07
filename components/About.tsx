@@ -12,7 +12,7 @@ export function About() {
   return (
     <Section id="about">
       <h2 className="text-2xl font-bold leading-snug sm:text-3xl">
-        月給14万から、毎年100万ずつ上げてきました
+        月給14万から、毎年100万ずつ上げてきて、今は月単価101万＋α
       </h2>
 
       <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-8">
@@ -45,7 +45,6 @@ export function About() {
         className="mt-10 space-y-4 text-base leading-relaxed"
         style={{ color: "var(--text)" }}
       >
-        <p>本当に、全然頑張ってないんです。</p>
         <p>
           Xには化け物みたいな人がいて、自分は最小限の努力でここまで来ました。
         </p>
@@ -56,7 +55,7 @@ export function About() {
         className="mt-8 space-y-4 text-sm leading-relaxed sm:text-base"
         style={{ color: "var(--text-secondary)" }}
       >
-        <p>「時代が変わりつつあるから無理」っていう言い訳はあります。</p>
+        <p>「時代が変わりつつあるから無理」という言い訳はあります。</p>
         <p>
           でも今、AIが使えるなら、むしろもっと早く、もっと楽にここまで来られます。
         </p>
