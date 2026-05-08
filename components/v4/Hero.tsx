@@ -14,7 +14,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="flex min-h-screen flex-col justify-center pt-32"
+      className="flex min-h-screen flex-col justify-center pt-20"
     >
       <motion.div
         initial="hidden"

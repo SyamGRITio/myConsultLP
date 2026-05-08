@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Nav } from "./Nav";
 import { Side } from "./Side";
 import { SocialLinks } from "./SocialLinks";
 import { EmailLink } from "./EmailLink";
@@ -15,7 +14,6 @@ export function Layout({ children }: { children: ReactNode }) {
         color: "var(--text-primary)",
       }}
     >
-      <Nav />
       <Side orientation="left">
         <SocialLinks />
       </Side>
