@@ -24,11 +24,11 @@ export function Hero() {
         <motion.div
           variants={fadeUp}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-5 flex items-center gap-3"
+          className="mb-8 flex items-center gap-3"
         >
           <Image
             src="/avatar.png"
-            alt="syam"
+            alt=""
             width={48}
             height={48}
             className="rounded-full border-2"
@@ -37,33 +37,18 @@ export function Hero() {
               borderColor: "var(--accent)",
             }}
           />
-          <p
-            className="font-mono text-sm md:text-base"
-            style={{ color: "var(--accent)" }}
-          >
-            Hi, I&apos;m
-          </p>
         </motion.div>
 
         <motion.h1
           variants={fadeUp}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-3 text-5xl font-bold md:text-7xl"
+          className="mb-6 text-5xl font-bold leading-tight md:text-7xl"
           style={{ color: "var(--text-headline)" }}
-        >
-          syam.
-        </motion.h1>
-
-        <motion.h2
-          variants={fadeUp}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-6 text-4xl font-bold leading-tight md:text-6xl"
-          style={{ color: "var(--text-secondary)" }}
         >
           付加価値、
           <br />
           一緒に上げませんか。
-        </motion.h2>
+        </motion.h1>
 
         <motion.div
           variants={fadeUp}

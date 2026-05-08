@@ -49,7 +49,13 @@ export function About() {
               className="absolute inset-0 translate-x-4 translate-y-4 rounded-lg border-2 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"
               style={{ borderColor: "var(--accent)" }}
             />
-            <div className="relative h-full w-full overflow-hidden rounded-lg">
+            <div
+              className="relative h-full w-full overflow-hidden rounded-lg"
+              style={{
+                background:
+                  "linear-gradient(to bottom right, rgba(244,162,107,0.25), rgba(233,75,139,0.25))",
+              }}
+            >
               <Image
                 src="/avatar.png"
                 alt="syam"

@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import { LINKS } from "@/lib/constants";
 
 const NAV_ITEMS = [
-  { num: "01", label: "ABOUT", href: "#about" },
-  { num: "02", label: "PHILOSOPHY", href: "#philosophy" },
-  { num: "03", label: "TWEETS", href: "#tweets" },
-  { num: "04", label: "PRESENT", href: "#gifts" },
-  { num: "05", label: "CONTACT", href: "#contact" },
+  { num: "01", label: "私について", href: "#about" },
+  { num: "02", label: "思想", href: "#philosophy" },
+  { num: "03", label: "ツイート", href: "#tweets" },
+  { num: "04", label: "プレゼント", href: "#gifts" },
+  { num: "05", label: "連絡", href: "#contact" },
 ];
 
 export function Nav() {
