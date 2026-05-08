@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { LINKS } from "@/lib/constants";
 
@@ -43,10 +44,20 @@ export function Nav() {
     >
       <Link
         href="/"
-        className="text-2xl font-bold transition-opacity hover:opacity-80"
-        style={{ color: "var(--accent)" }}
+        aria-label="Home"
+        className="block transition-opacity hover:opacity-80"
       >
-        S
+        <Image
+          src="/avatar.png"
+          alt="syam"
+          width={32}
+          height={32}
+          className="rounded-full border"
+          style={{
+            imageRendering: "pixelated",
+            borderColor: "var(--accent)",
+          }}
+        />
       </Link>
 
       <nav className="hidden items-center gap-8 md:flex">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionHeading } from "./SectionHeading";
 
@@ -42,28 +43,65 @@ export function About() {
           </p>
         </div>
 
-        <div className="space-y-6">
-          {STATS.map((s) => (
+        <div className="md:col-span-1">
+          <div className="group relative mx-auto aspect-square max-w-[300px]">
             <div
-              key={s.label}
-              className="border-l-2 pl-4"
+              className="absolute inset-0 translate-x-4 translate-y-4 rounded-lg border-2 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"
               style={{ borderColor: "var(--accent)" }}
+            />
+            <div
+              className="relative h-full w-full overflow-hidden rounded-lg"
+              style={{
+                backgroundColor: "var(--accent)",
+                mixBlendMode: "multiply",
+              }}
             >
-              <div
-                className="font-pixel text-3xl"
-                style={{ color: "var(--text-headline)" }}
-              >
-                {s.num}
-              </div>
-              <div
-                className="text-sm"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {s.label}
-              </div>
+              <Image
+                src="/avatar.png"
+                alt="syam"
+                fill
+                sizes="(min-width: 768px) 300px, 80vw"
+                className="object-cover transition-all group-hover:scale-105"
+                style={{
+                  imageRendering: "pixelated",
+                  mixBlendMode: "multiply",
+                }}
+              />
             </div>
-          ))}
+            <Image
+              src="/avatar.png"
+              alt=""
+              fill
+              aria-hidden
+              sizes="(min-width: 768px) 300px, 80vw"
+              className="pointer-events-none absolute inset-0 rounded-lg object-cover opacity-0 transition-all group-hover:scale-105 group-hover:opacity-100"
+              style={{ imageRendering: "pixelated" }}
+            />
+          </div>
         </div>
+      </div>
+
+      <div className="mt-16 grid gap-6 sm:grid-cols-3">
+        {STATS.map((s) => (
+          <div
+            key={s.label}
+            className="border-l-2 pl-4"
+            style={{ borderColor: "var(--accent)" }}
+          >
+            <div
+              className="font-pixel text-3xl"
+              style={{ color: "var(--text-headline)" }}
+            >
+              {s.num}
+            </div>
+            <div
+              className="text-sm"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              {s.label}
+            </div>
+          </div>
+        ))}
       </div>
     </motion.section>
   );

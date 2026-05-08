@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { LINKS, withUtm } from "@/lib/constants";
 
@@ -20,14 +21,29 @@ export function Hero() {
         animate="visible"
         transition={{ staggerChildren: 0.12 }}
       >
-        <motion.p
+        <motion.div
           variants={fadeUp}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-5 font-mono text-sm md:text-base"
-          style={{ color: "var(--accent)" }}
+          className="mb-5 flex items-center gap-3"
         >
-          Hi, I&apos;m
-        </motion.p>
+          <Image
+            src="/avatar.png"
+            alt="syam"
+            width={48}
+            height={48}
+            className="rounded-full border-2"
+            style={{
+              imageRendering: "pixelated",
+              borderColor: "var(--accent)",
+            }}
+          />
+          <p
+            className="font-mono text-sm md:text-base"
+            style={{ color: "var(--accent)" }}
+          >
+            Hi, I&apos;m
+          </p>
+        </motion.div>
 
         <motion.h1
           variants={fadeUp}
