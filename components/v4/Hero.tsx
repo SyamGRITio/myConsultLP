@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { LINKS, withUtm } from "@/lib/constants";
+import { PixelCloud } from "@/components/pixel/PixelCloud";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -24,19 +25,39 @@ export function Hero() {
         <motion.div
           variants={fadeUp}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-8 flex items-center gap-3"
+          className="mb-6"
         >
           <Image
             src="/avatar.png"
+            alt="syam"
+            width={40}
+            height={40}
+            style={{ imageRendering: "pixelated" }}
+          />
+        </motion.div>
+
+        <motion.div
+          variants={fadeUp}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="relative mb-10 h-[100px] w-full overflow-hidden rounded-md border md:h-[140px]"
+          style={{ borderColor: "var(--bg-tertiary)" }}
+        >
+          <Image
+            src="/pixel-city-sunset.png"
             alt=""
-            width={48}
-            height={48}
-            className="rounded-full border-2"
+            fill
+            sizes="100vw"
+            className="object-cover"
             style={{
               imageRendering: "pixelated",
-              borderColor: "var(--accent)",
+              objectPosition: "center",
             }}
           />
+          <div className="pointer-events-none absolute inset-0">
+            <PixelCloud className="absolute top-[20%] animate-cloud-band-1 opacity-70" />
+            <PixelCloud className="absolute top-[40%] animate-cloud-band-2 opacity-60" />
+            <PixelCloud className="absolute top-[10%] animate-cloud-band-3 opacity-80" />
+          </div>
         </motion.div>
 
         <motion.h1
