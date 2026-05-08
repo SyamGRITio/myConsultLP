@@ -49,34 +49,16 @@ export function About() {
               className="absolute inset-0 translate-x-4 translate-y-4 rounded-lg border-2 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"
               style={{ borderColor: "var(--accent)" }}
             />
-            <div
-              className="relative h-full w-full overflow-hidden rounded-lg"
-              style={{
-                backgroundColor: "var(--accent)",
-                mixBlendMode: "multiply",
-              }}
-            >
+            <div className="relative h-full w-full overflow-hidden rounded-lg">
               <Image
                 src="/avatar.png"
                 alt="syam"
                 fill
                 sizes="(min-width: 768px) 300px, 80vw"
-                className="object-cover transition-all group-hover:scale-105"
-                style={{
-                  imageRendering: "pixelated",
-                  mixBlendMode: "multiply",
-                }}
+                className="object-contain transition-transform group-hover:scale-105"
+                style={{ imageRendering: "pixelated" }}
               />
             </div>
-            <Image
-              src="/avatar.png"
-              alt=""
-              fill
-              aria-hidden
-              sizes="(min-width: 768px) 300px, 80vw"
-              className="pointer-events-none absolute inset-0 rounded-lg object-cover opacity-0 transition-all group-hover:scale-105 group-hover:opacity-100"
-              style={{ imageRendering: "pixelated" }}
-            />
           </div>
         </div>
       </div>
