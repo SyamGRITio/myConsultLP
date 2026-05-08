@@ -27,14 +27,7 @@ export function Footer() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="w-full px-6 py-12"
     >
-      <div
-        className="mx-auto max-w-3xl rounded-2xl px-6 py-10 sm:px-10"
-        style={{
-          backgroundColor: "rgba(14, 10, 31, 0.5)",
-          backdropFilter: "blur(2px)",
-          WebkitBackdropFilter: "blur(2px)",
-        }}
-      >
+      <div className="card-pixel mx-auto max-w-3xl sm:p-10">
         <div className="space-y-2 text-sm leading-relaxed" style={{ color: "var(--text)" }}>
           <p>最近、自分と同じ境遇だった人に情報を届けたい欲があふれてます。</p>
           <p>そこに届けるのが難しいけど、緩く、根気強く、これらで発信し続けます。</p>

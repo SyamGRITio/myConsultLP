@@ -92,12 +92,7 @@ export function Gifts() {
           href={withUtm(LINKS.line, "gifts", "cta")}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-base font-bold transition-transform hover:scale-[1.02]"
-          style={{
-            backgroundColor: "#F4A26B",
-            color: "#0E0A1F",
-            boxShadow: "0 8px 24px -8px rgba(244, 162, 107, 0.5)",
-          }}
+          className="btn-pixel"
         >
           <IconBrandLine size={20} stroke={2} />
           LINEを友だち追加して資料を受け取る

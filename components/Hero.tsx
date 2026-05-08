@@ -19,15 +19,10 @@ export function Hero() {
       variants={fadeUp}
       className="relative w-full"
     >
-      <div className="mx-auto flex min-h-[100svh] max-w-3xl flex-col justify-center px-6 py-20">
-        <div
-          className="rounded-2xl px-6 py-10 sm:px-10 sm:py-12"
-          style={{
-            backgroundColor: "rgba(14, 10, 31, 0.5)",
-            backdropFilter: "blur(2px)",
-            WebkitBackdropFilter: "blur(2px)",
-          }}
-        >
+      <div className="mx-auto flex min-h-[100svh] max-w-3xl flex-col items-center justify-center px-6 py-20">
+        <div className="card-pixel w-full text-center sm:p-10">
+          <p className="section-label mb-4">// HERO</p>
+
           <motion.h1
             variants={fadeUp}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -60,27 +55,24 @@ export function Hero() {
               href={withUtm(LINKS.line, "hero", "cta")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block rounded-full px-8 py-4 text-base font-bold transition-transform hover:scale-[1.02]"
-              style={{
-                backgroundColor: "var(--accent-orange)",
-                color: "var(--bg)",
-                boxShadow: "0 8px 24px -8px rgba(244, 162, 107, 0.4)",
-              }}
+              className="btn-pixel"
             >
               ちょっと話してみる
             </Link>
             <p
-              className="mt-4 text-sm"
+              className="mt-6 text-sm"
               style={{ color: "var(--text-secondary)" }}
             >
               今は無料相談だけ。近いうちに、有料のAzureコーチングを始めようと思っています。
             </p>
           </motion.div>
 
+          <div className="divider-pixel my-10" />
+
           <motion.blockquote
             variants={fadeUp}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mx-auto mt-12 max-w-xl border-l-4 px-6 py-2 text-center leading-relaxed"
+            className="mx-auto max-w-xl border-l-4 px-6 py-2 text-center leading-relaxed"
             style={{
               borderColor: "var(--accent-orange)",
               color: "var(--text)",

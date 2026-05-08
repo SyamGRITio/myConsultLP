@@ -21,14 +21,9 @@ export function CTA() {
       variants={fadeUp}
       className="relative w-full px-6 py-16 sm:py-20"
     >
-      <div
-        className="mx-auto max-w-3xl rounded-2xl px-6 py-12 text-center sm:px-10 sm:py-14"
-        style={{
-          backgroundColor: "rgba(14, 10, 31, 0.5)",
-          backdropFilter: "blur(2px)",
-          WebkitBackdropFilter: "blur(2px)",
-        }}
-      >
+      <div className="card-pixel mx-auto max-w-3xl text-center sm:p-12">
+        <p className="section-label mb-4">// CONTACT</p>
+
         <motion.h2
           variants={fadeUp}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -41,18 +36,13 @@ export function CTA() {
         <motion.div
           variants={fadeUp}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+          className="mt-10 flex flex-col items-center gap-6 sm:flex-row sm:justify-center"
         >
           <Link
             href={withUtm(LINKS.line, "cta-final", "cta")}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-bold transition-transform hover:scale-[1.02]"
-            style={{
-              backgroundColor: "var(--accent-orange)",
-              color: "var(--bg)",
-              boxShadow: "0 8px 24px -8px rgba(244, 162, 107, 0.5)",
-            }}
+            className="btn-pixel"
           >
             <IconBrandLine size={20} stroke={2} />
             LINEに登録する
@@ -61,12 +51,7 @@ export function CTA() {
             href={withUtm(LINKS.x, "cta-final", "dm")}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full border px-8 py-4 text-base font-bold transition-transform hover:scale-[1.02]"
-            style={{
-              borderColor: "var(--text)",
-              color: "var(--text)",
-              backgroundColor: "rgba(14,10,31,0.4)",
-            }}
+            className="btn-pixel-outline"
           >
             <IconBrandX size={20} stroke={2} />
             XのDMでも気軽に
@@ -76,7 +61,7 @@ export function CTA() {
         <motion.p
           variants={fadeUp}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mt-8 max-w-md text-sm leading-relaxed mx-auto"
+          className="mx-auto mt-10 max-w-md text-sm leading-relaxed"
           style={{ color: "var(--text-secondary)" }}
         >
           今は無料相談だけ。近いうちに、有料のAzureコーチングを始めようと思っています。
