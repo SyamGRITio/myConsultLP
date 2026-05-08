@@ -1,4 +1,5 @@
 import { Hero } from "@/components/v4/Hero";
+import { Painpoints } from "@/components/v4/Painpoints";
 import { About } from "@/components/v4/About";
 import { Philosophy } from "@/components/v4/Philosophy";
 import { Tweets } from "@/components/v4/Tweets";
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Painpoints />
       <About />
       <Philosophy />
       <Tweets />
