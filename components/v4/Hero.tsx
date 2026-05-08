@@ -15,9 +15,9 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden pt-20"
+      className="relative flex min-h-screen flex-col justify-center pt-20"
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="relative mb-12 h-32 overflow-hidden rounded-lg md:h-48">
         <Image
           src="/pixel-city-sunset.png"
           alt=""
@@ -30,15 +30,25 @@ export function Hero() {
             objectPosition: "center",
           }}
         />
-        <PixelCloud className="absolute top-[12%] animate-cloud-band-1 opacity-70" />
-        <PixelCloud className="absolute top-[22%] animate-cloud-band-2 opacity-60" />
-        <PixelCloud className="absolute top-[8%] animate-cloud-band-3 opacity-80" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(14,10,31,0.55) 0%, rgba(14,10,31,0.6) 50%, rgba(14,10,31,0.85) 100%)",
-          }}
+        <PixelCloud
+          variant={1}
+          className="absolute top-[15%] animate-cloud-band-1 opacity-90"
+        />
+        <PixelCloud
+          variant={2}
+          className="absolute top-[40%] animate-cloud-band-2 opacity-80"
+        />
+        <PixelCloud
+          variant={3}
+          className="absolute top-[8%] animate-cloud-band-3 opacity-90"
+        />
+        <PixelCloud
+          variant={4}
+          className="absolute top-[55%] animate-cloud-band-4 opacity-85"
+        />
+        <PixelCloud
+          variant={5}
+          className="absolute top-[25%] animate-cloud-band-5 opacity-90"
         />
       </div>
 
@@ -124,18 +134,28 @@ export function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="flex justify-center md:justify-end"
         >
-          <Image
-            src="/avatar.png"
-            alt="syam"
-            width={320}
-            height={320}
-            priority
-            className="w-full max-w-[260px] md:max-w-[320px]"
-            style={{
-              imageRendering: "pixelated",
-              height: "auto",
-            }}
-          />
+          <div className="group relative mx-auto aspect-square w-full max-w-[260px] md:max-w-[320px]">
+            <div
+              className="absolute inset-0 translate-x-4 translate-y-4 rounded-lg border-2 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"
+              style={{ borderColor: "var(--accent)" }}
+            />
+            <div
+              className="relative h-full w-full overflow-hidden rounded-lg"
+              style={{
+                background:
+                  "linear-gradient(to bottom right, rgba(244,162,107,0.25), rgba(233,75,139,0.25))",
+              }}
+            >
+              <Image
+                src="/avatar.png"
+                alt="syam"
+                fill
+                sizes="(min-width: 768px) 320px, 260px"
+                className="object-contain transition-transform group-hover:scale-105"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </div>
+          </div>
         </motion.div>
       </motion.div>
     </section>

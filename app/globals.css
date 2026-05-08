@@ -89,6 +89,19 @@ body {
 .animate-cloud-band-2 { animation: cloud-band-2 90s linear infinite; }
 .animate-cloud-band-3 { animation: cloud-band-3 75s linear infinite; animation-delay: -30s; }
 
+@keyframes cloud-band-4 {
+  from { transform: translateX(-120px); }
+  to { transform: translateX(calc(100vw + 120px)); }
+}
+
+@keyframes cloud-band-5 {
+  from { transform: translateX(-180px); }
+  to { transform: translateX(calc(100vw + 180px)); }
+}
+
+.animate-cloud-band-4 { animation: cloud-band-4 70s linear infinite; animation-delay: -15s; }
+.animate-cloud-band-5 { animation: cloud-band-5 85s linear infinite; animation-delay: -45s; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
