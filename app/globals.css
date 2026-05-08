@@ -1,181 +1,73 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap");
 
 @theme {
   --color-bg: #0E0A1F;
-  --color-card: #1A1233;
-  --color-border: #2B1B5E;
-  --color-accent-purple: #4B2E83;
-  --color-accent-pink: #E94B8B;
-  --color-accent-orange: #F4A26B;
-  --color-text: #F4F0E0;
-  --color-text-secondary: #9C8FB8;
+  --color-bg-secondary: #1A1233;
+  --color-bg-tertiary: #2B1B5E;
 
-  --font-sans: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-text-secondary: #9C8FB8;
+  --color-text-primary: #C9B8E8;
+  --color-text-headline: #F4F0E0;
+
+  --color-accent: #F4A26B;
+  --color-accent-pink: #E94B8B;
+  --color-accent-tint: rgba(244, 162, 107, 0.1);
+
+  --font-sans: "Noto Sans JP", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-pixel: "VT323", monospace;
 }
 
 :root {
   color-scheme: dark;
   --bg: #0E0A1F;
-  --card: #1A1233;
-  --border: #2B1B5E;
-  --accent-purple: #4B2E83;
-  --accent-pink: #E94B8B;
-  --accent-orange: #F4A26B;
-  --text: #F4F0E0;
+  --bg-secondary: #1A1233;
+  --bg-tertiary: #2B1B5E;
   --text-secondary: #9C8FB8;
+  --text-primary: #C9B8E8;
+  --text-headline: #F4F0E0;
+  --accent: #F4A26B;
+  --accent-pink: #E94B8B;
+  --accent-tint: rgba(244, 162, 107, 0.1);
 }
 
 html {
+  scroll-behavior: smooth;
   background-color: var(--bg);
-  color: var(--text);
+  color: var(--text-primary);
 }
 
 body {
-  background-color: transparent;
-  color: var(--text);
+  background-color: var(--bg);
+  color: var(--text-primary);
   font-family: var(--font-sans);
-  line-height: 1.8;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: var(--accent-orange);
+  background: var(--accent);
   color: var(--bg);
 }
 
-img {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
+::-webkit-scrollbar {
+  width: 12px;
 }
-
-svg {
-  shape-rendering: crispEdges;
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
 }
 
 .font-pixel {
-  font-family: "VT323", "Press Start 2P", monospace;
+  font-family: var(--font-pixel);
   letter-spacing: 0.05em;
-}
-
-.btn-pixel {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 14px 28px;
-  background: var(--accent-orange);
-  color: var(--bg);
-  font-family: "VT323", monospace;
-  font-size: 1.25rem;
-  letter-spacing: 0.05em;
-  border: 3px solid var(--bg);
-  box-shadow: 6px 6px 0 var(--bg);
-  transition: transform 0.1s, box-shadow 0.1s;
-  cursor: pointer;
-  text-decoration: none;
-}
-.btn-pixel:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0 var(--bg);
-}
-.btn-pixel:active {
-  transform: translate(6px, 6px);
-  box-shadow: none;
-}
-
-.btn-pixel-outline {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 14px 28px;
-  background: rgba(14, 10, 31, 0.6);
-  color: var(--text);
-  font-family: "VT323", monospace;
-  font-size: 1.25rem;
-  letter-spacing: 0.05em;
-  border: 3px solid var(--text);
-  box-shadow: 6px 6px 0 rgba(11, 7, 25, 0.6);
-  transition: transform 0.1s, box-shadow 0.1s;
-  cursor: pointer;
-  text-decoration: none;
-}
-.btn-pixel-outline:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0 rgba(11, 7, 25, 0.6);
-}
-.btn-pixel-outline:active {
-  transform: translate(6px, 6px);
-  box-shadow: none;
-}
-
-.card-pixel {
-  background: rgba(26, 18, 51, 0.85);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  border: 3px solid var(--accent-orange);
-  box-shadow: 8px 8px 0 rgba(11, 7, 25, 0.6);
-  padding: 24px;
-}
-
-.divider-pixel {
-  background-image: linear-gradient(
-    to right,
-    var(--accent-orange) 0%, var(--accent-orange) 12.5%,
-    transparent 12.5%, transparent 25%,
-    var(--accent-orange) 25%, var(--accent-orange) 37.5%,
-    transparent 37.5%, transparent 50%,
-    var(--accent-orange) 50%, var(--accent-orange) 62.5%,
-    transparent 62.5%, transparent 75%,
-    var(--accent-orange) 75%, var(--accent-orange) 87.5%,
-    transparent 87.5%
-  );
-  height: 4px;
-}
-
-.section-label {
-  font-family: "VT323", monospace;
-  font-size: 1rem;
-  letter-spacing: 0.15em;
-  color: var(--accent-orange);
-  text-transform: uppercase;
-}
-
-@keyframes cloud-drift {
-  from { transform: translateX(-30%); }
-  to { transform: translateX(130%); }
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-
-@keyframes window-blink {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
-@keyframes water-wave {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(2px); }
-}
-
-@keyframes steam {
-  0% { transform: translateY(0) scale(1); opacity: 0; }
-  20% { opacity: 0.7; }
-  100% { transform: translateY(-30px) scale(1.3); opacity: 0; }
-}
-
-@keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -183,20 +75,21 @@ svg {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 .tweet-container {
   --tweet-container-margin: 0 auto;
   --tweet-font-family: var(--font-sans);
-  --tweet-bg-color: var(--card);
-  --tweet-bg-color-hover: var(--card);
-  --tweet-color-blue-primary: var(--accent-orange);
+  --tweet-bg-color: var(--bg-secondary);
+  --tweet-bg-color-hover: var(--bg-secondary);
+  --tweet-color-blue-primary: var(--accent);
   --tweet-color-blue-primary-hover: var(--accent-pink);
   --tweet-color-blue-secondary: var(--text-secondary);
   --tweet-color-blue-secondary-hover: rgba(244, 162, 107, 0.1);
-  --tweet-border: 1px solid var(--border);
-  --tweet-font-color: var(--text);
+  --tweet-border: 1px solid var(--bg-tertiary);
+  --tweet-font-color: var(--text-headline);
   --tweet-font-color-secondary: var(--text-secondary);
   --tweet-quoted-bg-color-hover: rgba(75, 46, 131, 0.2);
 }

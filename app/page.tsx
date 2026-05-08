@@ -1,27 +1,25 @@
-import { Hero } from "@/components/Hero";
-import { PainPoints } from "@/components/PainPoints";
-import { About } from "@/components/About";
-import { TweetTimeline } from "@/components/TweetTimeline";
-import { Philosophy } from "@/components/Philosophy";
-import { Gifts } from "@/components/Gifts";
-import { TalkAbout } from "@/components/TalkAbout";
-import { Flow } from "@/components/Flow";
-import { CTA } from "@/components/CTA";
-import { Footer } from "@/components/Footer";
+import { Hero } from "@/components/v4/Hero";
+import { About } from "@/components/v4/About";
+import { Philosophy } from "@/components/v4/Philosophy";
+import { Tweets } from "@/components/v4/Tweets";
+import { Gifts } from "@/components/v4/Gifts";
+import { TalkAbout } from "@/components/v4/TalkAbout";
+import { Flow } from "@/components/v4/Flow";
+import { Contact } from "@/components/v4/Contact";
+import { Footer } from "@/components/v4/Footer";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Hero />
-      <PainPoints />
       <About />
-      <TweetTimeline />
       <Philosophy />
+      <Tweets />
       <Gifts />
       <TalkAbout />
       <Flow />
-      <CTA />
+      <Contact />
       <Footer />
-    </main>
+    </>
   );
 }

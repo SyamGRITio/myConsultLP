@@ -1,21 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { ParallaxBackground } from "@/components/ParallaxBackground";
-
-const notoSansJp = Noto_Sans_JP({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-noto-sans-jp",
-  display: "swap",
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["500", "700"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
-});
+import { Layout } from "@/components/v4/Layout";
 
 const description =
   "月給14万から始めて、毎年100万ずつ年収を上げてきた。今では月単価101万＋α。たぶん、再現できます。";
@@ -50,13 +35,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="ja"
-      className={`${notoSansJp.variable} ${jetBrainsMono.variable}`}
-    >
+    <html lang="ja">
       <body>
-        <ParallaxBackground />
-        {children}
+        <Layout>{children}</Layout>
       </body>
     </html>
   );
