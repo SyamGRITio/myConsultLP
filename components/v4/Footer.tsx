@@ -20,8 +20,12 @@ export function Footer() {
       className="py-8 text-center font-mono text-xs"
       style={{ color: "var(--text-secondary)" }}
     >
-      <p>最近、自分と同じ境遇だった人に情報を届けたい欲があふれてます。</p>
-      <p>そこに届けるのが難しいけど、緩く、根気強く、これらで発信し続けます。</p>
+      <p className="text-sm" style={{ color: "var(--text-primary)" }}>
+        最近、自分と同じ境遇だった人に情報を届けたい欲があふれてます。
+      </p>
+      <p className="text-sm" style={{ color: "var(--text-primary)" }}>
+        そこに届けるのが難しいけど、緩く、根気強く、これらで発信し続けます。
+      </p>
 
       <ul className="mt-4 flex justify-center gap-4">
         {SOCIALS.map(({ Icon, url, label }) => (

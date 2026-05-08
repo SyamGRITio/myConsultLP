@@ -85,9 +85,9 @@ body {
   to { transform: translateX(calc(100vw + 200px)); }
 }
 
-.animate-cloud-band-1 { animation: cloud-band-1 60s linear infinite; }
-.animate-cloud-band-2 { animation: cloud-band-2 90s linear infinite; }
-.animate-cloud-band-3 { animation: cloud-band-3 75s linear infinite; animation-delay: -30s; }
+.animate-cloud-band-1 { animation: cloud-band-1 140s linear infinite; }
+.animate-cloud-band-2 { animation: cloud-band-2 180s linear infinite; }
+.animate-cloud-band-3 { animation: cloud-band-3 160s linear infinite; animation-delay: -60s; }
 
 @keyframes cloud-band-4 {
   from { transform: translateX(-120px); }
@@ -99,8 +99,8 @@ body {
   to { transform: translateX(calc(100vw + 180px)); }
 }
 
-.animate-cloud-band-4 { animation: cloud-band-4 70s linear infinite; animation-delay: -15s; }
-.animate-cloud-band-5 { animation: cloud-band-5 85s linear infinite; animation-delay: -45s; }
+.animate-cloud-band-4 { animation: cloud-band-4 150s linear infinite; animation-delay: -30s; }
+.animate-cloud-band-5 { animation: cloud-band-5 170s linear infinite; animation-delay: -90s; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

@@ -32,23 +32,23 @@ export function Hero() {
         />
         <PixelCloud
           variant={1}
-          className="absolute top-[15%] animate-cloud-band-1 opacity-90"
+          className="absolute top-[15%] animate-cloud-band-1 opacity-45"
         />
         <PixelCloud
           variant={2}
-          className="absolute top-[40%] animate-cloud-band-2 opacity-80"
+          className="absolute top-[40%] animate-cloud-band-2 opacity-35"
         />
         <PixelCloud
           variant={3}
-          className="absolute top-[8%] animate-cloud-band-3 opacity-90"
+          className="absolute top-[8%] animate-cloud-band-3 opacity-50"
         />
         <PixelCloud
           variant={4}
-          className="absolute top-[55%] animate-cloud-band-4 opacity-85"
+          className="absolute top-[55%] animate-cloud-band-4 opacity-30"
         />
         <PixelCloud
           variant={5}
-          className="absolute top-[25%] animate-cloud-band-5 opacity-90"
+          className="absolute top-[25%] animate-cloud-band-5 opacity-40"
         />
       </div>
 

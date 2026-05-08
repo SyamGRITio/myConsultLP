@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { IconBrandLine, IconBrandX } from "@tabler/icons-react";
 import { LINKS, withUtm } from "@/lib/constants";
 
 export function Contact() {
@@ -14,12 +15,6 @@ export function Contact() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <p
-        className="mb-3 font-mono text-sm"
-        style={{ color: "var(--accent)" }}
-      >
-        07. What&apos;s Next?
-      </p>
       <h2
         className="mb-6 text-5xl font-bold md:text-6xl"
         style={{ color: "var(--text-headline)" }}
@@ -40,7 +35,7 @@ export function Contact() {
           href={withUtm(LINKS.line, "contact", "cta")}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-md border px-10 py-5 font-mono transition-colors"
+          className="inline-flex items-center gap-2 rounded-md border px-10 py-5 font-mono transition-colors"
           style={{
             borderColor: "var(--accent)",
             color: "var(--accent)",
@@ -52,13 +47,14 @@ export function Contact() {
             e.currentTarget.style.backgroundColor = "transparent";
           }}
         >
+          <IconBrandLine size={20} stroke={1.5} />
           LINEに登録する
         </Link>
         <Link
           href={withUtm(LINKS.x, "contact", "dm")}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-md border px-10 py-5 font-mono transition-colors"
+          className="inline-flex items-center gap-2 rounded-md border px-10 py-5 font-mono transition-colors"
           style={{
             borderColor: "var(--text-secondary)",
             color: "var(--text-secondary)",
@@ -72,6 +68,7 @@ export function Contact() {
             e.currentTarget.style.color = "var(--text-secondary)";
           }}
         >
+          <IconBrandX size={20} stroke={1.5} />
           XのDMでも気軽に
         </Link>
       </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SectionHeading } from "./SectionHeading";
 
 const STATS = [
   { num: "+100万", label: "毎年" },
@@ -19,8 +18,6 @@ export function About() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <SectionHeading num="01" label="私について" />
-
       <div
         className="space-y-4 leading-relaxed"
         style={{ color: "var(--text-secondary)" }}
@@ -34,7 +31,7 @@ export function About() {
           </span>
         </p>
         <p>
-          Xには化け物みたいな人がいて、自分は最小限の努力でここまで来ました。たぶん、再現性あります。
+          Xには化け物みたいな人がいて、レベルが高すぎる人を見るだけで疲弊して、萎縮してしまう。私もそうでした。それでも、最小限の努力をやり切ると決めて、ここまで来ました。たぶん、再現性あります。
         </p>
         <p>
           「時代が変わりつつあるから無理」という言い訳はあります。でも今、AIが使えるなら、むしろもっと早く、もっと楽にここまで来られます。
