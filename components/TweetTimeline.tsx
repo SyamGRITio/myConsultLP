@@ -7,18 +7,20 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { TWEET_IDS } from "@/lib/constants";
 
 const AUTO_ADVANCE_MS = 5000;
-const VIRTUALIZE_RANGE = 2;
 const SWIPE_THRESHOLD = 50;
 
 export function TweetTimeline() {
-  const count = TWEET_IDS.length;
+  const total = TWEET_IDS.length;
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  const next = useCallback(() => setCurrent((i) => (i + 1) % count), [count]);
+  const next = useCallback(
+    () => setCurrent((i) => (i + 1) % total),
+    [total],
+  );
   const prev = useCallback(
-    () => setCurrent((i) => (i - 1 + count) % count),
-    [count],
+    () => setCurrent((i) => (i - 1 + total) % total),
+    [total],
   );
 
   useEffect(() => {
@@ -69,37 +71,27 @@ export function TweetTimeline() {
             style={{ height: 600 }}
           >
             <motion.div
-              className="flex h-full cursor-grab touch-pan-y active:cursor-grabbing"
-              style={{ width: `${count * 100}%` }}
-              animate={{ x: `-${current * (100 / count)}%` }}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+              key={current}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.2}
+              initial={{ x: 0, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
               onDragStart={() => setPaused(true)}
-              onDragEnd={(_, info) => {
-                if (info.offset.x < -SWIPE_THRESHOLD) next();
-                else if (info.offset.x > SWIPE_THRESHOLD) prev();
+              onDragEnd={(_, { offset }) => {
+                if (offset.x < -SWIPE_THRESHOLD) {
+                  setCurrent((prev) => Math.min(prev + 1, total - 1));
+                } else if (offset.x > SWIPE_THRESHOLD) {
+                  setCurrent((prev) => Math.max(prev - 1, 0));
+                }
                 setPaused(false);
               }}
+              className="absolute inset-0 cursor-grab touch-pan-y overflow-y-auto px-2 active:cursor-grabbing"
             >
-              {TWEET_IDS.map((id, i) => {
-                const visible = Math.abs(i - current) <= VIRTUALIZE_RANGE;
-                return (
-                  <div
-                    key={id}
-                    className="h-full shrink-0 overflow-y-auto px-2"
-                    style={{ width: `${100 / count}%` }}
-                    aria-hidden={i !== current}
-                  >
-                    {visible ? (
-                      <div data-theme="dark" className="tweet-container pointer-events-auto">
-                        <Tweet id={id} />
-                      </div>
-                    ) : null}
-                  </div>
-                );
-              })}
+              <div data-theme="dark" className="tweet-container pointer-events-auto">
+                <Tweet id={TWEET_IDS[current]} />
+              </div>
             </motion.div>
           </div>
 
@@ -143,9 +135,7 @@ export function TweetTimeline() {
                   className="h-2 rounded-full transition-all"
                   style={{
                     width: active ? 24 : 8,
-                    backgroundColor: active
-                      ? "#F4A26B"
-                      : "var(--border)",
+                    backgroundColor: active ? "#F4A26B" : "var(--border)",
                   }}
                 />
               );
