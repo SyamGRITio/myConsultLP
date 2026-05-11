@@ -151,7 +151,16 @@ export function Hero() {
                 alt="syam"
                 fill
                 sizes="(min-width: 768px) 320px, 260px"
-                className="object-contain transition-transform group-hover:scale-105"
+                className="object-contain transition-opacity duration-200 ease-out group-hover:opacity-0"
+                style={{ imageRendering: "pixelated" }}
+              />
+              <Image
+                src="/avatar-hover.png"
+                alt=""
+                aria-hidden
+                fill
+                sizes="(min-width: 768px) 320px, 260px"
+                className="object-contain opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 motion-safe:group-hover:animate-avatar-pop"
                 style={{ imageRendering: "pixelated" }}
               />
             </div>
