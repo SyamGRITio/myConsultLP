@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { LINKS, withUtm } from "@/lib/constants";
 import { PixelCloud } from "@/components/pixel/PixelCloud";
 
@@ -11,7 +12,44 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
+const POP_DURATION_MS = 2500;
+
 export function Hero() {
+  const avatarRef = useRef<HTMLDivElement>(null);
+  const popTimer = useRef<number | null>(null);
+  const hasAutoPlayed = useRef(false);
+  const [popping, setPopping] = useState(false);
+
+  const triggerPop = () => {
+    if (popTimer.current !== null) {
+      window.clearTimeout(popTimer.current);
+    }
+    setPopping(true);
+    popTimer.current = window.setTimeout(() => {
+      setPopping(false);
+      popTimer.current = null;
+    }, POP_DURATION_MS);
+  };
+
+  useEffect(() => {
+    const node = avatarRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAutoPlayed.current) {
+          hasAutoPlayed.current = true;
+          triggerPop();
+        }
+      },
+      { threshold: 0.55 },
+    );
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      if (popTimer.current !== null) window.clearTimeout(popTimer.current);
+    };
+  }, []);
+
   return (
     <section
       id="hero"
@@ -134,9 +172,23 @@ export function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="flex justify-center md:justify-end"
         >
-          <div className="group relative mx-auto aspect-square w-full max-w-[260px] md:max-w-[320px]">
+          <div
+            ref={avatarRef}
+            data-popping={popping ? "" : undefined}
+            onClick={triggerPop}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                triggerPop();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="syamのアイコン。タップでアニメーション再生"
+            className="group relative mx-auto aspect-square w-full max-w-[260px] cursor-pointer md:max-w-[320px]"
+          >
             <div
-              className="absolute inset-0 translate-x-4 translate-y-4 rounded-lg border-2 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"
+              className="absolute inset-0 translate-x-4 translate-y-4 rounded-lg border-2 transition-transform group-hover:translate-x-2 group-hover:translate-y-2 group-data-[popping]:translate-x-2 group-data-[popping]:translate-y-2"
               style={{ borderColor: "var(--accent)" }}
             />
             <div
@@ -151,7 +203,7 @@ export function Hero() {
                 alt="syam"
                 fill
                 sizes="(min-width: 768px) 320px, 260px"
-                className="object-contain transition-opacity duration-200 ease-out group-hover:opacity-0"
+                className="object-contain transition-opacity duration-200 ease-out group-hover:opacity-0 group-data-[popping]:opacity-0"
                 style={{ imageRendering: "pixelated" }}
               />
               <Image
@@ -160,7 +212,7 @@ export function Hero() {
                 aria-hidden
                 fill
                 sizes="(min-width: 768px) 320px, 260px"
-                className="object-contain opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 motion-safe:group-hover:animate-avatar-pop"
+                className="object-contain opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 group-data-[popping]:opacity-100 motion-safe:group-hover:animate-avatar-pop motion-safe:group-data-[popping]:animate-avatar-pop"
                 style={{ imageRendering: "pixelated" }}
               />
             </div>
