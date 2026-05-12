@@ -28,7 +28,7 @@ const SIGNS: Sign[] = [
   },
   {
     num: "03",
-    year: "2018",
+    year: "2019",
     title: "薬局勤務",
     body: "登録販売者として薬局で勤務。本社が決めた商品を売る毎日に違和感。「自分なりに工夫して売りたい」が芽生える。",
   },
@@ -58,14 +58,14 @@ const SIGNS: Sign[] = [
   },
   {
     num: "08",
-    year: "2021.9",
+    year: "2022.4",
     title: "SES入社・富山",
     body: "案件待機半年、富山へ単身赴任。引っ越し代は自腹、給料前借り、手取り12〜13万。",
   },
   {
     num: "09",
-    year: "2022.4〜",
-    title: "実務開始",
+    year: "2023",
+    title: "決意",
     body: "絶対稼ぐと決めて、学歴の代わりに資格を量産。3年で約30個、評価で月+12万、資格手当で借金完済。",
   },
   {
@@ -264,6 +264,7 @@ export function Journey() {
                 sign={sign}
                 pos={getSignPos(i)}
                 isActive={activeSign === i}
+                isBoss={i === 1}
               />
             ))}
 
@@ -272,19 +273,19 @@ export function Journey() {
               style={{
                 x: playerX,
                 y: playerY,
-                width: 56,
-                height: 56,
-                marginLeft: -28,
-                marginTop: -38,
+                width: 76,
+                height: 76,
+                marginLeft: -38,
+                marginTop: -52,
               }}
             >
               <Image
                 src="/avatar.png"
                 alt=""
-                width={56}
-                height={56}
+                width={76}
+                height={76}
                 style={{ imageRendering: "pixelated" }}
-                className="drop-shadow-[0_3px_0_rgba(0,0,0,0.6)]"
+                className="drop-shadow-[0_3px_0_rgba(0,0,0,0.65)]"
               />
             </motion.div>
           </div>
@@ -690,26 +691,198 @@ function PixelRock({ x, y }: { x: number; y: number }) {
 // ── Signs and bubbles ─────────────────────────────────────────────
 
 function SignBoard({ sign }: { sign: Sign }) {
+  // Adventure-style quest signpost: wood plank with grain stripes,
+  // iron corner bolts, a year ribbon banner, and a thicker pole + base.
   return (
-    <div className="flex flex-col items-center">
+    <div className="relative flex flex-col items-center">
+      {/* Year ribbon banner */}
       <div
-        className="rounded-sm px-3 py-2 text-center"
+        className="relative z-10 -mb-1 rounded-sm border px-2 py-0.5 font-pixel text-[10px] tracking-wider text-[#ffe6b3]"
         style={{
-          backgroundColor: "#7a4a26",
-          border: "3px solid #3d2412",
-          boxShadow: "3px 3px 0 #1a1008",
-          minWidth: 130,
+          backgroundColor: "#5a3416",
+          borderColor: "#2a1408",
+          boxShadow: "1px 1px 0 #1a1008",
         }}
       >
-        <div className="font-pixel text-[10px] leading-none text-[#ffd699]">
-          {sign.year}
-        </div>
-        <div className="mt-0.5 font-pixel text-xs leading-tight text-white">
+        {sign.year}
+      </div>
+
+      {/* Wooden plank panel */}
+      <div
+        className="relative px-3 pb-2 pt-3 text-center font-pixel"
+        style={{
+          minWidth: 144,
+          backgroundColor: "#7a4a26",
+          backgroundImage:
+            "repeating-linear-gradient(180deg, transparent 0 6px, rgba(0,0,0,0.18) 6px 8px)",
+          border: "3px solid #3d2412",
+          borderRadius: "3px 3px 0 0",
+          boxShadow: "3px 3px 0 #1a1008, inset 0 0 0 2px #6a3e1c",
+        }}
+      >
+        {/* Corner bolts */}
+        <span
+          className="absolute h-1.5 w-1.5 rounded-full"
+          style={{ left: 4, top: 4, backgroundColor: "#2a1408" }}
+        />
+        <span
+          className="absolute h-1.5 w-1.5 rounded-full"
+          style={{ right: 4, top: 4, backgroundColor: "#2a1408" }}
+        />
+        <span
+          className="absolute h-1.5 w-1.5 rounded-full"
+          style={{ left: 4, bottom: 4, backgroundColor: "#2a1408" }}
+        />
+        <span
+          className="absolute h-1.5 w-1.5 rounded-full"
+          style={{ right: 4, bottom: 4, backgroundColor: "#2a1408" }}
+        />
+        <div className="text-[13px] leading-tight text-white">
           {sign.title}
         </div>
       </div>
-      <div className="h-6 w-2" style={{ backgroundColor: "#3d2412" }} />
+
+      {/* Thicker pole with a flared base */}
+      <div
+        className="h-7 w-2.5"
+        style={{
+          backgroundColor: "#3d2412",
+          boxShadow: "inset -1px 0 0 #1a1008",
+        }}
+      />
+      <div
+        className="h-1.5 w-8 rounded-sm"
+        style={{ backgroundColor: "#3d2412" }}
+      />
     </div>
+  );
+}
+
+function BossCastle() {
+  // Pixel castle to replace sign 02 (専門学校・借金300万) — a boss encounter
+  // visualisation. Same approx height/width as a sign so layout still works.
+  return (
+    <div className="relative flex flex-col items-center">
+      <svg
+        width="170"
+        height="130"
+        shapeRendering="crispEdges"
+        style={{ filter: "drop-shadow(3px 3px 0 rgba(0,0,0,0.55))" }}
+      >
+        {/* Castle stone (dark) */}
+        {/* Side towers */}
+        <rect x="6" y="48" width="28" height="78" fill="#4a3a52" />
+        <rect x="136" y="48" width="28" height="78" fill="#4a3a52" />
+        {/* Crenellations on side towers */}
+        <rect x="6" y="40" width="6" height="8" fill="#4a3a52" />
+        <rect x="16" y="40" width="6" height="8" fill="#4a3a52" />
+        <rect x="26" y="40" width="6" height="8" fill="#4a3a52" />
+        <rect x="136" y="40" width="6" height="8" fill="#4a3a52" />
+        <rect x="146" y="40" width="6" height="8" fill="#4a3a52" />
+        <rect x="156" y="40" width="6" height="8" fill="#4a3a52" />
+        {/* Main wall */}
+        <rect x="30" y="70" width="110" height="56" fill="#5a4a62" />
+        {/* Crenellations on main wall */}
+        <rect x="30" y="62" width="8" height="8" fill="#5a4a62" />
+        <rect x="44" y="62" width="8" height="8" fill="#5a4a62" />
+        <rect x="58" y="62" width="8" height="8" fill="#5a4a62" />
+        <rect x="104" y="62" width="8" height="8" fill="#5a4a62" />
+        <rect x="118" y="62" width="8" height="8" fill="#5a4a62" />
+        <rect x="132" y="62" width="8" height="8" fill="#5a4a62" />
+        {/* Central tower */}
+        <rect x="66" y="20" width="38" height="106" fill="#5a4a62" />
+        {/* Pointed roof */}
+        <polygon points="60,20 110,20 85,2" fill="#7a2a36" />
+        <polygon points="60,20 110,20 85,2" fill="none" stroke="#3a1018" strokeWidth="1" />
+        {/* Flag pole + flag */}
+        <line x1="85" y1="2" x2="85" y2="-12" stroke="#888" strokeWidth="1" />
+        <polygon points="85,-12 96,-9 85,-5" fill="#e94b8b" />
+        {/* Tower window */}
+        <rect x="78" y="36" width="10" height="14" fill="#1a0e22" />
+        <rect x="80" y="38" width="6" height="4" fill="#ffd56b" opacity="0.9" />
+        {/* Wall windows */}
+        <rect x="42" y="84" width="8" height="12" fill="#1a0e22" />
+        <rect x="120" y="84" width="8" height="12" fill="#1a0e22" />
+        {/* Gate */}
+        <rect x="74" y="92" width="22" height="34" fill="#1a0e1a" />
+        <rect x="74" y="92" width="22" height="3" fill="#3a1018" />
+        {/* Outline accents */}
+        <rect x="6" y="48" width="28" height="2" fill="#3a2a44" />
+        <rect x="136" y="48" width="28" height="2" fill="#3a2a44" />
+        <rect x="30" y="70" width="110" height="2" fill="#3a2a44" />
+      </svg>
+
+      {/* Boss label nameplate */}
+      <div
+        className="-mt-1 rounded-sm border px-2 py-0.5 font-pixel text-[10px] tracking-widest"
+        style={{
+          backgroundColor: "#2a1018",
+          borderColor: "#e94b8b",
+          color: "#ff8aac",
+          boxShadow: "0 0 8px rgba(233,75,139,0.45)",
+        }}
+      >
+        ★ BOSS ★
+      </div>
+    </div>
+  );
+}
+
+function ExplosionFX({ active }: { active: boolean }) {
+  // Cycles a handful of pixel bursts around the castle while active.
+  const bursts = useMemo(
+    () => [
+      { x: 12, y: 22, size: 28, delay: 0.0, color: "#ffb84a" },
+      { x: 138, y: 14, size: 24, delay: 0.25, color: "#ffd84a" },
+      { x: 64, y: -10, size: 22, delay: 0.5, color: "#ff7a3a" },
+      { x: -6, y: 70, size: 26, delay: 0.75, color: "#ffd84a" },
+      { x: 132, y: 76, size: 22, delay: 1.0, color: "#ffb84a" },
+      { x: 70, y: 100, size: 20, delay: 1.25, color: "#ff7a3a" },
+    ],
+    [],
+  );
+
+  if (!active) return null;
+  return (
+    <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
+      {bursts.map((b, i) => (
+        <motion.div
+          key={i}
+          className="absolute"
+          style={{ left: b.x, top: b.y }}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0, 1.25, 1, 0], opacity: [0, 1, 0.85, 0] }}
+          transition={{
+            duration: 1.2,
+            ease: "easeOut",
+            delay: b.delay,
+            repeat: Infinity,
+            repeatDelay: 0.8,
+          }}
+        >
+          <PixelBurst size={b.size} color={b.color} />
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+function PixelBurst({ size, color }: { size: number; color: string }) {
+  // Eight-pointed pixel starburst, classic explosion sprite vibe.
+  const s = size;
+  return (
+    <svg width={s} height={s} viewBox="0 0 24 24" shapeRendering="crispEdges">
+      <rect x="11" y="0" width="2" height="6" fill={color} />
+      <rect x="11" y="18" width="2" height="6" fill={color} />
+      <rect x="0" y="11" width="6" height="2" fill={color} />
+      <rect x="18" y="11" width="6" height="2" fill={color} />
+      <rect x="4" y="4" width="3" height="3" fill={color} />
+      <rect x="17" y="4" width="3" height="3" fill={color} />
+      <rect x="4" y="17" width="3" height="3" fill={color} />
+      <rect x="17" y="17" width="3" height="3" fill={color} />
+      <rect x="8" y="8" width="8" height="8" fill={color} />
+      <rect x="10" y="10" width="4" height="4" fill="#ffffff" />
+    </svg>
   );
 }
 
@@ -717,22 +890,32 @@ function SignBoardWithBubble({
   sign,
   pos,
   isActive,
+  isBoss,
 }: {
   sign: Sign;
   pos: { x: number; y: number };
   isActive: boolean;
+  isBoss?: boolean;
 }) {
   const bubbleAbove = pos.y >= SCROLL_H / 2;
+  const width = isBoss ? 170 : 144;
   return (
     <div
       className="absolute z-10"
       style={{
-        left: pos.x - 65,
-        top: pos.y - 4,
-        width: 130,
+        left: pos.x - width / 2,
+        top: pos.y - (isBoss ? 96 : 4),
+        width,
       }}
     >
-      <SignBoard sign={sign} />
+      {isBoss ? (
+        <div className="relative">
+          <BossCastle />
+          <ExplosionFX active={isActive} />
+        </div>
+      ) : (
+        <SignBoard sign={sign} />
+      )}
       <Bubble
         body={sign.body}
         year={sign.year}
