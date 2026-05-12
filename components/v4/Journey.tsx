@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useScroll,
-} from "framer-motion";
+import { motion, useMotionValue, useScroll } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { LINKS, withUtm } from "@/lib/constants";
@@ -88,25 +83,26 @@ const SIGNS: Sign[] = [
 ];
 
 const SCROLL_W = 5400;
-const SCROLL_H = 600;
-const START_PAD = 220;
-const END_PAD = 240;
+const SCROLL_H = 720;
+const START_PAD = 400;
+const END_PAD = 360;
 const SIGN_X_RANGE = SCROLL_W - START_PAD - END_PAD;
 const SIGN_COUNT = SIGNS.length;
+const HORIZON_Y = SCROLL_H * 0.62;
 
 function getSignPos(i: number) {
   const x = START_PAD + (i / (SIGN_COUNT - 1)) * SIGN_X_RANGE;
   const baseY = SCROLL_H / 2;
-  const amplitude = 130;
+  const amplitude = 140;
   const y = baseY + amplitude * Math.sin((i / (SIGN_COUNT - 1)) * Math.PI * 3.4);
   return { x, y };
 }
 
 function buildPath() {
   const points: { x: number; y: number }[] = [];
-  points.push({ x: 70, y: SCROLL_H / 2 });
+  points.push({ x: 80, y: SCROLL_H / 2 });
   for (let i = 0; i < SIGN_COUNT; i++) points.push(getSignPos(i));
-  points.push({ x: SCROLL_W - 70, y: SCROLL_H / 2 });
+  points.push({ x: SCROLL_W - 100, y: SCROLL_H / 2 });
 
   let d = `M ${points[0].x} ${points[0].y}`;
   for (let i = 0; i < points.length - 1; i++) {
@@ -129,9 +125,10 @@ export function Journey() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const [pathLen, setPathLen] = useState(0);
+  const [activeSign, setActiveSign] = useState(0);
   const { scrollXProgress } = useScroll({ container: scrollRef });
 
-  const playerX = useMotionValue(70);
+  const playerX = useMotionValue(80);
   const playerY = useMotionValue(SCROLL_H / 2);
 
   useEffect(() => {
@@ -147,6 +144,39 @@ export function Journey() {
     });
     return () => unsub();
   }, [scrollXProgress, pathLen, playerX, playerY]);
+
+  // Closest-sign detection from scrollLeft. Deterministic across viewports.
+  useEffect(() => {
+    const c = scrollRef.current;
+    if (!c) return;
+    let raf = 0;
+    const compute = () => {
+      raf = 0;
+      const center = c.scrollLeft + c.clientWidth / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      for (let i = 0; i < SIGNS.length; i++) {
+        const d = Math.abs(getSignPos(i).x - center);
+        if (d < bestDist) {
+          bestDist = d;
+          best = i;
+        }
+      }
+      setActiveSign(best);
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(compute);
+    };
+    compute();
+    c.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", compute);
+    return () => {
+      c.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", compute);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <motion.section
@@ -194,30 +224,18 @@ export function Journey() {
 
         <div
           ref={scrollRef}
-          className="relative overflow-x-auto overflow-y-hidden rounded-lg scroll-smooth snap-x snap-mandatory"
+          className="relative overflow-x-auto overflow-y-hidden rounded-lg scroll-smooth"
           style={{ height: SCROLL_H, border: "3px solid #444" }}
         >
           <div
             className="relative"
             style={{ width: SCROLL_W, height: SCROLL_H }}
           >
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `linear-gradient(to right,
-                  #2a1217 0%,
-                  #2a1217 22%,
-                  #2d1d12 28%,
-                  #2d1d12 50%,
-                  #112a1c 56%,
-                  #112a1c 72%,
-                  #1a1238 78%,
-                  #1a1238 100%)`,
-              }}
-            />
-
-            <StarsBg />
-            <Decorations />
+            <Sky />
+            <CelestialBodies />
+            <StarsLayer />
+            <DistantHills />
+            <CityAndWater />
 
             <svg
               className="absolute inset-0 pointer-events-none"
@@ -228,39 +246,36 @@ export function Journey() {
                 ref={pathRef}
                 d={PATH_D}
                 fill="none"
-                stroke="rgba(244,162,107,0.55)"
+                stroke="rgba(244,162,107,0.65)"
                 strokeWidth="6"
                 strokeLinecap="round"
                 strokeDasharray="14 8"
               />
             </svg>
 
-            <Flag x={50} y={SCROLL_H / 2 - 64} label="START" color="#22c55e" />
-            <Flag
-              x={SCROLL_W - 86}
-              y={SCROLL_H / 2 - 64}
-              label="NOW"
-              color="#e94b8b"
-            />
+            <Decorations />
+
+            <StartFlag />
+            <ContinuesAfterNow />
 
             {SIGNS.map((sign, i) => (
-              <SignWithBubble
+              <SignBoardWithBubble
                 key={sign.num}
                 sign={sign}
                 pos={getSignPos(i)}
-                scrollRef={scrollRef}
+                isActive={activeSign === i}
               />
             ))}
 
             <motion.div
-              className="pointer-events-none absolute top-0 left-0 z-10"
+              className="pointer-events-none absolute top-0 left-0 z-20"
               style={{
                 x: playerX,
                 y: playerY,
                 width: 56,
                 height: 56,
                 marginLeft: -28,
-                marginTop: -36,
+                marginTop: -38,
               }}
             >
               <Image
@@ -313,6 +328,367 @@ export function Journey() {
   );
 }
 
+// ── Background layers ──────────────────────────────────────────────
+
+function Sky() {
+  return (
+    <div
+      className="absolute inset-0"
+      style={{
+        background: `linear-gradient(to right,
+          #2a0e16 0%,
+          #4a1a20 8%,
+          #7a2a28 16%,
+          #92352a 22%,
+          #6a2a3a 32%,
+          #3a1e4a 42%,
+          #1a1240 52%,
+          #0a0820 62%,
+          #100b30 72%,
+          #2a1850 80%,
+          #6a2a5a 88%,
+          #c0507a 94%,
+          #f0a070 100%)`,
+      }}
+    >
+      {/* Vertical darkening near bottom to suggest ground/horizon */}
+      <div
+        className="absolute inset-x-0 bottom-0"
+        style={{
+          height: SCROLL_H - HORIZON_Y,
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.55) 100%)",
+        }}
+      />
+    </div>
+  );
+}
+
+function CelestialBodies() {
+  return (
+    <div className="pointer-events-none absolute inset-0">
+      {/* Setting sun, sunset zone */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          left: 760,
+          top: HORIZON_Y - 70,
+          width: 110,
+          height: 110,
+          background:
+            "radial-gradient(circle, #ffd385 0%, #ff9a4a 45%, rgba(255,120,60,0) 75%)",
+          opacity: 0.95,
+        }}
+      />
+      {/* Moon, night zone */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          left: 3250,
+          top: 110,
+          width: 56,
+          height: 56,
+          background:
+            "radial-gradient(circle, #f4ecd0 0%, #d9c89a 60%, rgba(217,200,154,0) 100%)",
+          opacity: 0.85,
+          boxShadow: "0 0 24px rgba(244,236,208,0.35)",
+        }}
+      />
+      {/* Rising sun, dawn zone */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          left: SCROLL_W - 360,
+          top: HORIZON_Y - 30,
+          width: 90,
+          height: 90,
+          background:
+            "radial-gradient(circle, #fff5d5 0%, #f4a26b 50%, rgba(244,162,107,0) 80%)",
+          opacity: 0.9,
+        }}
+      />
+    </div>
+  );
+}
+
+function StarsLayer() {
+  const stars = useMemo(() => {
+    let seed = 1337;
+    const rand = () => {
+      seed = (seed * 9301 + 49297) % 233280;
+      return seed / 233280;
+    };
+    const arr: { x: number; y: number; size: number; opacity: number }[] = [];
+    for (let i = 0; i < 220; i++) {
+      const x = rand() * SCROLL_W;
+      // Density per zone via sample rejection
+      const norm = x / SCROLL_W;
+      let prob: number;
+      if (norm < 0.22) prob = 0.18; // sunset: few
+      else if (norm < 0.48) prob = 0.75; // twilight: more
+      else if (norm < 0.72) prob = 1.0; // night: many
+      else if (norm < 0.86) prob = 0.55; // dawn early: fading
+      else prob = 0.15; // dawn: almost none
+      if (rand() > prob) continue;
+      const y = rand() * (HORIZON_Y - 20);
+      arr.push({
+        x,
+        y,
+        size: rand() < 0.78 ? 2 : 3,
+        opacity: 0.4 + rand() * 0.55,
+      });
+    }
+    return arr;
+  }, []);
+  return (
+    <div className="pointer-events-none absolute inset-0">
+      {stars.map((s, i) => (
+        <div
+          key={i}
+          className="absolute bg-white"
+          style={{
+            left: s.x,
+            top: s.y,
+            width: s.size,
+            height: s.size,
+            opacity: s.opacity,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function DistantHills() {
+  // Layered hill silhouettes along horizon, throughout scroll
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0"
+      width={SCROLL_W}
+      height={SCROLL_H}
+      shapeRendering="crispEdges"
+    >
+      {/* Far hills */}
+      <path
+        d={`M 0 ${HORIZON_Y + 10} Q 200 ${HORIZON_Y - 30}, 400 ${HORIZON_Y} T 800 ${HORIZON_Y - 10} T 1200 ${HORIZON_Y + 5} T 1700 ${HORIZON_Y - 20} T 2300 ${HORIZON_Y + 5} T 2900 ${HORIZON_Y - 25} T 3500 ${HORIZON_Y} T 4000 ${HORIZON_Y - 15} L ${SCROLL_W} ${HORIZON_Y - 5} L ${SCROLL_W} ${SCROLL_H} L 0 ${SCROLL_H} Z`}
+        fill="rgba(20,12,30,0.55)"
+      />
+      {/* Near hills */}
+      <path
+        d={`M 0 ${HORIZON_Y + 35} Q 250 ${HORIZON_Y + 5}, 500 ${HORIZON_Y + 30} T 1000 ${HORIZON_Y + 20} T 1500 ${HORIZON_Y + 40} T 2100 ${HORIZON_Y + 15} T 2700 ${HORIZON_Y + 35} T 3300 ${HORIZON_Y + 18} T 4000 ${HORIZON_Y + 30} L ${SCROLL_W} ${HORIZON_Y + 25} L ${SCROLL_W} ${SCROLL_H} L 0 ${SCROLL_H} Z`}
+        fill="rgba(10,6,20,0.65)"
+      />
+    </svg>
+  );
+}
+
+function CityAndWater() {
+  // City at dawn zone with water reflection beneath
+  const CITY_X = SCROLL_W - 1200;
+  const CITY_W = 1100;
+  const CITY_BASE = HORIZON_Y + 8;
+
+  type B = {
+    x: number;
+    w: number;
+    h: number;
+    windows: { x: number; y: number }[];
+  };
+  const buildings: B[] = useMemo(() => {
+    let seed = 9871;
+    const rand = () => {
+      seed = (seed * 9301 + 49297) % 233280;
+      return seed / 233280;
+    };
+    const arr: B[] = [];
+    let x = 30;
+    while (x < CITY_W - 40) {
+      const w = 32 + Math.floor(rand() * 70);
+      const h = 50 + Math.floor(rand() * 130);
+      const windows: { x: number; y: number }[] = [];
+      const cols = Math.max(1, Math.floor(w / 12));
+      const rows = Math.max(1, Math.floor(h / 14));
+      for (let cy = 0; cy < rows; cy++) {
+        for (let cx = 0; cx < cols; cx++) {
+          if (rand() < 0.45) {
+            windows.push({ x: 6 + cx * 12, y: 8 + cy * 14 });
+          }
+        }
+      }
+      arr.push({ x, w, h, windows });
+      x += w + 4 + Math.floor(rand() * 14);
+    }
+    return arr;
+  }, []);
+
+  return (
+    <svg
+      className="pointer-events-none absolute"
+      style={{ left: CITY_X, top: 0 }}
+      width={CITY_W}
+      height={SCROLL_H}
+      shapeRendering="crispEdges"
+    >
+      {/* Buildings */}
+      <g>
+        {buildings.map((b, i) => (
+          <g key={i} transform={`translate(${b.x},${CITY_BASE - b.h})`}>
+            <rect width={b.w} height={b.h} fill="#13091e" />
+            <rect
+              x="0"
+              y="0"
+              width={b.w}
+              height="2"
+              fill="rgba(244,162,107,0.4)"
+            />
+            {b.windows.map((w, j) => (
+              <rect
+                key={j}
+                x={w.x}
+                y={w.y}
+                width="3"
+                height="3"
+                fill="#ffd56b"
+                opacity={0.85}
+              />
+            ))}
+          </g>
+        ))}
+      </g>
+
+      {/* Horizon line */}
+      <line
+        x1="0"
+        y1={CITY_BASE}
+        x2={CITY_W}
+        y2={CITY_BASE}
+        stroke="rgba(244,162,107,0.45)"
+        strokeWidth="2"
+      />
+
+      {/* Water reflection: mirrored, faded, scan-lined */}
+      <g
+        opacity="0.32"
+        transform={`matrix(1, 0, 0, -0.55, 0, ${CITY_BASE * 2 + (SCROLL_H - CITY_BASE) * 0.55})`}
+      >
+        {buildings.map((b, i) => (
+          <g key={i} transform={`translate(${b.x},${CITY_BASE - b.h})`}>
+            <rect width={b.w} height={b.h} fill="#3a1a40" />
+            {b.windows.map((w, j) => (
+              <rect
+                key={j}
+                x={w.x}
+                y={w.y}
+                width="3"
+                height="3"
+                fill="#ffd56b"
+                opacity={0.45}
+              />
+            ))}
+          </g>
+        ))}
+      </g>
+
+      {/* Water scan lines for lo-fi reflection */}
+      {Array.from({ length: 8 }).map((_, i) => {
+        const y = CITY_BASE + 14 + i * 16;
+        if (y >= SCROLL_H - 6) return null;
+        return (
+          <line
+            key={i}
+            x1="0"
+            y1={y}
+            x2={CITY_W}
+            y2={y}
+            stroke="rgba(244,162,107,0.28)"
+            strokeWidth="1"
+            strokeDasharray="10 6"
+            opacity={0.7 - i * 0.07}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+function Decorations() {
+  const decos = useMemo(() => {
+    let seed = 4242;
+    const rand = () => {
+      seed = (seed * 9301 + 49297) % 233280;
+      return seed / 233280;
+    };
+    const arr: { type: "cloud" | "tree" | "rock"; x: number; y: number }[] =
+      [];
+    for (let i = 0; i < 36; i++) {
+      const x = 80 + rand() * (SCROLL_W - 1500);
+      const norm = x / SCROLL_W;
+      const r = rand();
+      let type: "cloud" | "tree" | "rock";
+      if (r < 0.4) type = "cloud";
+      else if (r < 0.75) type = "tree";
+      else type = "rock";
+      let y: number;
+      if (type === "cloud") y = 30 + rand() * 100;
+      else y = HORIZON_Y - 4 + rand() * 30;
+      // Skip clouds in deep night (looks weird)
+      if (type === "cloud" && norm > 0.55 && norm < 0.78) continue;
+      arr.push({ type, x, y });
+    }
+    return arr;
+  }, []);
+  return (
+    <div className="pointer-events-none absolute inset-0">
+      {decos.map((d, i) => {
+        if (d.type === "cloud") return <PixelCloud key={i} x={d.x} y={d.y} />;
+        if (d.type === "tree") return <PixelTree key={i} x={d.x} y={d.y} />;
+        return <PixelRock key={i} x={d.x} y={d.y} />;
+      })}
+    </div>
+  );
+}
+
+function PixelCloud({ x, y }: { x: number; y: number }) {
+  return (
+    <div className="absolute opacity-60" style={{ left: x, top: y }}>
+      <svg width="48" height="22" shapeRendering="crispEdges">
+        <rect x="6" y="6" width="6" height="6" fill="#fff" />
+        <rect x="12" y="2" width="22" height="6" fill="#fff" />
+        <rect x="34" y="6" width="6" height="6" fill="#fff" />
+        <rect x="2" y="12" width="44" height="6" fill="#fff" />
+      </svg>
+    </div>
+  );
+}
+
+function PixelTree({ x, y }: { x: number; y: number }) {
+  return (
+    <div className="absolute opacity-80" style={{ left: x, top: y }}>
+      <svg width="28" height="36" shapeRendering="crispEdges">
+        <rect x="10" y="0" width="8" height="4" fill="#1f5a2b" />
+        <rect x="4" y="4" width="20" height="6" fill="#1f5a2b" />
+        <rect x="0" y="10" width="28" height="10" fill="#1f5a2b" />
+        <rect x="4" y="20" width="20" height="4" fill="#143a1c" />
+        <rect x="12" y="24" width="4" height="12" fill="#4a2a14" />
+      </svg>
+    </div>
+  );
+}
+
+function PixelRock({ x, y }: { x: number; y: number }) {
+  return (
+    <div className="absolute opacity-65" style={{ left: x, top: y }}>
+      <svg width="20" height="14" shapeRendering="crispEdges">
+        <rect x="4" y="0" width="12" height="4" fill="#8a8a8a" />
+        <rect x="2" y="4" width="16" height="7" fill="#6a6a6a" />
+        <rect x="0" y="11" width="20" height="3" fill="#4a4a4a" />
+      </svg>
+    </div>
+  );
+}
+
+// ── Signs and bubbles ─────────────────────────────────────────────
+
 function SignBoard({ sign }: { sign: Sign }) {
   return (
     <div className="flex flex-col items-center">
@@ -322,7 +698,7 @@ function SignBoard({ sign }: { sign: Sign }) {
           backgroundColor: "#7a4a26",
           border: "3px solid #3d2412",
           boxShadow: "3px 3px 0 #1a1008",
-          minWidth: 120,
+          minWidth: 130,
         }}
       >
         <div className="font-pixel text-[10px] leading-none text-[#ffd699]">
@@ -337,50 +713,32 @@ function SignBoard({ sign }: { sign: Sign }) {
   );
 }
 
-function SignWithBubble({
+function SignBoardWithBubble({
   sign,
   pos,
-  scrollRef,
+  isActive,
 }: {
   sign: Sign;
   pos: { x: number; y: number };
-  scrollRef: React.RefObject<HTMLDivElement | null>;
+  isActive: boolean;
 }) {
-  const signRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(signRef, {
-    root: scrollRef,
-    margin: "0px -38% 0px -38%",
-    amount: 0.5,
-  });
-
-  const [debounced, setDebounced] = useState(false);
-  useEffect(() => {
-    const delay = isInView ? 0 : 300;
-    const t = window.setTimeout(() => setDebounced(isInView), delay);
-    return () => window.clearTimeout(t);
-  }, [isInView]);
-
   const bubbleAbove = pos.y >= SCROLL_H / 2;
-  const bubbleSide: "above" | "below" = bubbleAbove ? "above" : "below";
-
   return (
     <div
-      ref={signRef}
-      className="absolute snap-center"
+      className="absolute z-10"
       style={{
-        left: pos.x - 60,
+        left: pos.x - 65,
         top: pos.y - 4,
-        width: 120,
+        width: 130,
       }}
     >
       <SignBoard sign={sign} />
-
       <Bubble
         body={sign.body}
         year={sign.year}
         title={sign.title}
-        active={debounced}
-        side={bubbleSide}
+        active={isActive}
+        side={bubbleAbove ? "above" : "below"}
       />
     </div>
   );
@@ -429,7 +787,7 @@ function Bubble({
       }
     >
       <div
-        className="relative rounded-md p-3 font-pixel leading-relaxed text-white"
+        className="relative rounded-md font-pixel leading-relaxed text-white"
         style={{
           backgroundColor: "#1e3a8a",
           boxShadow:
@@ -488,140 +846,77 @@ function BubbleTail({ side }: { side: "above" | "below" }) {
   );
 }
 
-function Flag({
-  x,
-  y,
-  label,
-  color,
-}: {
-  x: number;
-  y: number;
-  label: string;
-  color: string;
-}) {
+// ── Endpoints ──────────────────────────────────────────────────────
+
+function StartFlag() {
   return (
-    <div className="absolute z-10" style={{ left: x, top: y }}>
-      <svg width="36" height="72">
-        <line x1="3" y1="6" x2="3" y2="70" stroke="#8a8a8a" strokeWidth="3" />
-        <polygon points="3,6 32,16 3,26" fill={color} stroke="#000" strokeWidth="1" />
+    <div className="absolute z-10" style={{ left: 50, top: SCROLL_H / 2 - 78 }}>
+      <svg width="36" height="84">
+        <line x1="3" y1="6" x2="3" y2="82" stroke="#8a8a8a" strokeWidth="3" />
+        <polygon
+          points="3,6 34,18 3,30"
+          fill="#22c55e"
+          stroke="#000"
+          strokeWidth="1"
+        />
       </svg>
       <div
         className="absolute left-9 top-2 font-pixel text-[10px] tracking-widest text-white"
         style={{ textShadow: "1px 1px 0 #000" }}
       >
-        {label}
+        START
       </div>
     </div>
   );
 }
 
-function StarsBg() {
-  const stars = useMemo(() => {
-    const arr: { x: number; y: number; size: number; opacity: number }[] = [];
-    let seed = 1234;
-    const rand = () => {
-      seed = (seed * 9301 + 49297) % 233280;
-      return seed / 233280;
-    };
-    for (let i = 0; i < 80; i++) {
-      arr.push({
-        x: rand() * SCROLL_W,
-        y: rand() * SCROLL_H,
-        size: rand() < 0.7 ? 2 : 3,
-        opacity: 0.25 + rand() * 0.4,
-      });
-    }
-    return arr;
-  }, []);
+function ContinuesAfterNow() {
+  // After the last sign (NOW), the path continues with fading footprints
+  // and a small つづく indicator, instead of a hard goal flag.
+  const lastSign = getSignPos(SIGN_COUNT - 1);
+  const startX = lastSign.x + 70;
+  const endX = SCROLL_W - 40;
+  const baseY = SCROLL_H / 2;
+
+  const steps = Array.from({ length: 7 }).map((_, i) => {
+    const t = (i + 1) / 8;
+    const x = startX + (endX - startX) * t;
+    const y = baseY + Math.sin(t * Math.PI * 1.4) * 18;
+    const opacity = 0.55 * (1 - t);
+    return { x, y, opacity };
+  });
+
   return (
-    <div className="pointer-events-none absolute inset-0">
-      {stars.map((s, i) => (
+    <div className="absolute inset-0 z-[5] pointer-events-none">
+      {/* Fading footprints */}
+      {steps.map((s, i) => (
         <div
           key={i}
-          className="absolute bg-white"
+          className="absolute"
           style={{
             left: s.x,
             top: s.y,
-            width: s.size,
-            height: s.size,
+            width: 7,
+            height: 4,
+            backgroundColor: "rgba(244,162,107,1)",
             opacity: s.opacity,
+            borderRadius: 1,
+            transform: i % 2 === 0 ? "rotate(-12deg)" : "rotate(12deg)",
           }}
         />
       ))}
-    </div>
-  );
-}
-
-function Decorations() {
-  const decos = useMemo(() => {
-    const arr: { type: "cloud" | "tree" | "rock"; x: number; y: number }[] =
-      [];
-    let seed = 4242;
-    const rand = () => {
-      seed = (seed * 9301 + 49297) % 233280;
-      return seed / 233280;
-    };
-    const types = ["cloud", "tree", "rock"] as const;
-    for (let i = 0; i < 28; i++) {
-      const t = types[Math.floor(rand() * 3)];
-      const x = 80 + rand() * (SCROLL_W - 160);
-      let y: number;
-      if (t === "cloud") y = 30 + rand() * 80;
-      else y = SCROLL_H - 80 - rand() * 40;
-      arr.push({ type: t, x, y });
-    }
-    return arr;
-  }, []);
-  return (
-    <div className="pointer-events-none absolute inset-0">
-      {decos.map((d, i) => {
-        if (d.type === "cloud") {
-          return <PixelCloud key={i} x={d.x} y={d.y} />;
-        }
-        if (d.type === "tree") {
-          return <PixelTree key={i} x={d.x} y={d.y} />;
-        }
-        return <PixelRock key={i} x={d.x} y={d.y} />;
-      })}
-    </div>
-  );
-}
-
-function PixelCloud({ x, y }: { x: number; y: number }) {
-  return (
-    <div className="absolute opacity-50" style={{ left: x, top: y }}>
-      <svg width="42" height="20" shapeRendering="crispEdges">
-        <rect x="6" y="6" width="6" height="6" fill="#fff" />
-        <rect x="12" y="2" width="18" height="6" fill="#fff" />
-        <rect x="30" y="6" width="6" height="6" fill="#fff" />
-        <rect x="2" y="12" width="38" height="6" fill="#fff" />
-      </svg>
-    </div>
-  );
-}
-
-function PixelTree({ x, y }: { x: number; y: number }) {
-  return (
-    <div className="absolute opacity-70" style={{ left: x, top: y }}>
-      <svg width="24" height="32" shapeRendering="crispEdges">
-        <rect x="8" y="0" width="8" height="4" fill="#1e7a3a" />
-        <rect x="4" y="4" width="16" height="6" fill="#1e7a3a" />
-        <rect x="0" y="10" width="24" height="8" fill="#1e7a3a" />
-        <rect x="4" y="18" width="16" height="4" fill="#155228" />
-        <rect x="10" y="22" width="4" height="10" fill="#5a3a18" />
-      </svg>
-    </div>
-  );
-}
-
-function PixelRock({ x, y }: { x: number; y: number }) {
-  return (
-    <div className="absolute opacity-65" style={{ left: x, top: y }}>
-      <svg width="18" height="12" shapeRendering="crispEdges">
-        <rect x="4" y="0" width="10" height="3" fill="#9a9a9a" />
-        <rect x="2" y="3" width="14" height="6" fill="#7a7a7a" />
-        <rect x="0" y="9" width="18" height="3" fill="#5a5a5a" />
-      </svg>
+      {/* つづく label, anchored near the end */}
+      <div
+        className="absolute font-pixel text-xs tracking-widest"
+        style={{
+          left: endX - 80,
+          top: baseY - 40,
+          color: "rgba(244,162,107,0.85)",
+          textShadow: "1px 1px 0 rgba(0,0,0,0.6)",
+        }}
+      >
+        → つづく…
+      </div>
     </div>
   );
 }
