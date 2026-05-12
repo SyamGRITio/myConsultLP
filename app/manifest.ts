@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "syam",
     short_name: "syam",
     description:
-      "月給14万から始めて、毎年100万ずつ年収を上げてきた。たぶん、再現できます。",
+      "月給13万から始めて、毎年100万ずつ年収を上げてきた。たぶん、再現できます。",
     start_url: "/",
     display: "standalone",
     background_color: "#5DD3D7",

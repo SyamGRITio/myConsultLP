@@ -198,7 +198,7 @@ export function Journey() {
           className="text-lg font-bold md:text-xl"
           style={{ color: "var(--text-headline)" }}
         >
-          月給14万までの、ちょっと長い助走
+          月給13万までの、ちょっと長い助走
         </p>
         <p
           className="text-sm md:text-base"

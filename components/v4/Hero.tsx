@@ -160,7 +160,7 @@ export function Hero() {
             className="mb-10 max-w-2xl space-y-2 text-base leading-relaxed md:text-lg"
             style={{ color: "var(--text-primary)" }}
           >
-            <p>月給14万から始めて、毎年100万ずつ年収を上げてきた。</p>
+            <p>月給13万から始めて、毎年100万ずつ年収を上げてきた。</p>
             <p>今では月単価101万＋α。借金300万を返して、資格を30個取った。</p>
             <p>Xには化け物みたいな人がいる中、私は最小限の努力でここまで来ました。</p>
           </motion.div>

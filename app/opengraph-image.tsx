@@ -50,7 +50,7 @@ export default async function OG() {
             color: "#9C8FB8",
           }}
         >
-          月給14万から、毎年100万ずつ。たぶん、再現できます。
+          月給13万から、毎年100万ずつ。たぶん、再現できます。
         </div>
       </div>
     ),
