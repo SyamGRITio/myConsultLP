@@ -37,14 +37,14 @@ const SOCIALS = [
 
 export function SocialLinks() {
   return (
-    <ul className="flex list-none flex-col gap-3">
+    <ul className="flex list-none flex-col gap-5">
       {SOCIALS.map(({ Icon, url, label, desc }) => (
         <li key={label}>
           <a
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col gap-0.5 font-mono transition-all hover:-translate-y-0.5"
+            className="group flex flex-col gap-1 font-mono transition-all hover:-translate-y-0.5"
             style={{ color: "var(--text-secondary)" }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "var(--accent)";
@@ -58,8 +58,12 @@ export function SocialLinks() {
               <span>{label}</span>
             </span>
             <span
-              className="font-pixel text-[11px] leading-tight tracking-wider"
-              style={{ color: "var(--accent)", opacity: 0.8 }}
+              className="ml-6 block border-l-2 pl-2 font-pixel text-[11px] leading-snug tracking-wider"
+              style={{
+                color: "var(--accent)",
+                borderColor: "var(--accent)",
+                opacity: 0.8,
+              }}
             >
               【{desc}】
             </span>

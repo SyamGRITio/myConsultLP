@@ -9,7 +9,7 @@ export function Side({ orientation, children }: Props) {
   return (
     <div
       className={`fixed bottom-0 z-40 hidden lg:block ${
-        orientation === "left" ? "left-10 w-28" : "right-10 w-10"
+        orientation === "left" ? "left-6 w-44 xl:left-10" : "right-10 w-10"
       }`}
     >
       <div

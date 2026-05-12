@@ -22,7 +22,7 @@ export function Layout({ children }: { children: ReactNode }) {
       </Side>
       <main
         id="content"
-        className="mx-auto min-h-screen max-w-[1600px] px-6 sm:px-12 md:px-24 lg:px-36"
+        className="mx-auto min-h-screen max-w-[1600px] px-6 sm:px-12 md:px-24 lg:pl-56 lg:pr-36"
       >
         {children}
       </main>
