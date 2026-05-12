@@ -299,30 +299,34 @@ export function Journey() {
         </p>
       </div>
 
-      <div className="mt-14 flex flex-col items-center gap-5 text-center">
+      <div className="mt-14 flex flex-col items-center gap-6 text-center">
         <p
-          className="text-base leading-relaxed md:text-lg"
+          className="max-w-2xl text-base leading-relaxed md:text-lg"
           style={{ color: "var(--text-primary)" }}
         >
-          ここまで、来た。次は、あなたの番かもしれません。
+          あなたにはあなたの冒険がある。これから向かいたい先を教えてくれませんか？
         </p>
         <Link
           href={withUtm(LINKS.line, "journey", "cta")}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block rounded-md border px-8 py-4 font-mono transition-colors"
+          className="group relative inline-flex items-center gap-3 px-7 py-4 font-pixel text-base tracking-widest transition-transform hover:-translate-y-0.5 md:text-lg"
           style={{
-            borderColor: "var(--accent)",
-            color: "var(--accent)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--accent-tint)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "transparent";
+            backgroundColor: "#0a0820",
+            color: "#fff",
+            border: "3px solid #fff",
+            boxShadow:
+              "inset 0 0 0 2px #0a0820, inset 0 0 0 4px #fff, 4px 4px 0 rgba(0,0,0,0.55)",
           }}
         >
-          ちょっと話してみる
+          <span
+            aria-hidden
+            className="motion-safe:animate-dq-cursor"
+            style={{ color: "#fff", lineHeight: 1, fontSize: "1.1em" }}
+          >
+            ▶
+          </span>
+          <span>ちょっと話してみる</span>
         </Link>
       </div>
     </motion.section>

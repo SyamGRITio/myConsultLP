@@ -109,6 +109,12 @@ body {
 }
 .animate-avatar-pop { animation: avatar-pop 0.4s ease-out; }
 
+@keyframes dq-cursor {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+.animate-dq-cursor { animation: dq-cursor 1s steps(1) infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
