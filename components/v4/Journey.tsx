@@ -264,7 +264,7 @@ export function Journey() {
                 sign={sign}
                 pos={getSignPos(i)}
                 isActive={activeSign === i}
-                isBoss={i === 1}
+                boss={i === 1 ? "castle" : i === 4 ? "warrior" : undefined}
               />
             ))}
 
@@ -812,32 +812,141 @@ function BossCastle() {
         <rect x="30" y="70" width="110" height="2" fill="#3a2a44" />
       </svg>
 
-      {/* Boss label nameplate */}
-      <div
-        className="-mt-1 rounded-sm border px-2 py-0.5 font-pixel text-[10px] tracking-widest"
-        style={{
-          backgroundColor: "#2a1018",
-          borderColor: "#e94b8b",
-          color: "#ff8aac",
-          boxShadow: "0 0 8px rgba(233,75,139,0.45)",
-        }}
+      <BossNameplate />
+    </div>
+  );
+}
+
+function ArmoredWarriorBoss() {
+  // Grim pixel warrior in horned armor, scythe in hand. Used for sign 05
+  // (コロナ撃沈) — a different boss flavor than the castle.
+  return (
+    <div className="relative flex flex-col items-center">
+      <svg
+        width="130"
+        height="148"
+        shapeRendering="crispEdges"
+        style={{ filter: "drop-shadow(3px 3px 0 rgba(0,0,0,0.65))" }}
       >
-        ★ BOSS ★
-      </div>
+        {/* Cape behind */}
+        <polygon
+          points="22,42 108,42 122,144 8,144"
+          fill="#3a0814"
+        />
+        <polygon
+          points="22,42 108,42 122,144 8,144"
+          fill="none"
+          stroke="#1a0008"
+          strokeWidth="1"
+        />
+
+        {/* Body torso */}
+        <rect x="34" y="52" width="62" height="56" fill="#3a2a3a" />
+        {/* Chest plate diamond */}
+        <polygon points="42,54 88,54 78,82 52,82" fill="#5a4a5a" />
+        <polygon
+          points="42,54 88,54 78,82 52,82"
+          fill="none"
+          stroke="#1a0a1a"
+          strokeWidth="1"
+        />
+        <rect x="61" y="64" width="8" height="8" fill="#e94b8b" />
+
+        {/* Belt */}
+        <rect x="34" y="104" width="62" height="6" fill="#5a3a1a" />
+        <rect x="60" y="104" width="10" height="6" fill="#c8a040" />
+
+        {/* Shoulder pauldrons */}
+        <polygon points="18,52 36,46 36,72 16,72" fill="#2a1a2a" />
+        <polygon points="112,52 94,46 94,72 114,72" fill="#2a1a2a" />
+        <rect x="20" y="40" width="6" height="10" fill="#1a0a1a" />
+        <rect x="104" y="40" width="6" height="10" fill="#1a0a1a" />
+
+        {/* Arms */}
+        <rect x="14" y="64" width="14" height="42" fill="#2a1a2a" />
+        <rect x="102" y="64" width="14" height="42" fill="#2a1a2a" />
+        {/* Gauntlets */}
+        <rect x="12" y="100" width="18" height="12" fill="#3a2a3a" />
+        <rect x="100" y="100" width="18" height="12" fill="#3a2a3a" />
+
+        {/* Legs + boots */}
+        <rect x="38" y="110" width="20" height="32" fill="#2a1a2a" />
+        <rect x="62" y="110" width="20" height="32" fill="#2a1a2a" />
+        <rect x="36" y="138" width="24" height="6" fill="#1a0a1a" />
+        <rect x="60" y="138" width="24" height="6" fill="#1a0a1a" />
+
+        {/* Helmet */}
+        <rect x="36" y="6" width="48" height="38" fill="#2a1a2a" />
+        {/* Helmet horns */}
+        <polygon points="36,8 28,2 36,16" fill="#1a0a1a" />
+        <polygon points="84,8 92,2 84,16" fill="#1a0a1a" />
+        {/* Helmet visor slot */}
+        <rect x="40" y="22" width="40" height="8" fill="#0a0006" />
+        {/* Glowing red eyes */}
+        <rect x="44" y="23" width="6" height="5" fill="#ff1d3a" />
+        <rect x="70" y="23" width="6" height="5" fill="#ff1d3a" />
+        <rect x="46" y="24" width="2" height="2" fill="#fff0d0" />
+        <rect x="72" y="24" width="2" height="2" fill="#fff0d0" />
+        {/* Skull grin teeth */}
+        <rect x="46" y="34" width="28" height="5" fill="#0a0006" />
+        <rect x="48" y="34" width="2" height="5" fill="#dadada" />
+        <rect x="52" y="34" width="2" height="5" fill="#dadada" />
+        <rect x="56" y="34" width="2" height="5" fill="#dadada" />
+        <rect x="60" y="34" width="2" height="5" fill="#dadada" />
+        <rect x="64" y="34" width="2" height="5" fill="#dadada" />
+        <rect x="68" y="34" width="2" height="5" fill="#dadada" />
+        <rect x="72" y="34" width="2" height="5" fill="#dadada" />
+        {/* Helmet bottom edge */}
+        <rect x="36" y="44" width="48" height="6" fill="#1a0a1a" />
+
+        {/* Scythe (right hand) */}
+        <rect x="116" y="20" width="3" height="100" fill="#5a3a1a" />
+        <polygon
+          points="119,20 134,32 130,52 120,42"
+          fill="#dadada"
+        />
+        <polygon
+          points="119,20 134,32 130,52 120,42"
+          fill="none"
+          stroke="#3a3a3a"
+          strokeWidth="1"
+        />
+        <rect x="116" y="48" width="6" height="3" fill="#5a5a5a" />
+      </svg>
+
+      <BossNameplate />
+    </div>
+  );
+}
+
+function BossNameplate() {
+  return (
+    <div
+      className="-mt-1 rounded-sm border px-2 py-0.5 font-pixel text-[10px] tracking-widest"
+      style={{
+        backgroundColor: "#2a1018",
+        borderColor: "#e94b8b",
+        color: "#ff8aac",
+        boxShadow: "0 0 8px rgba(233,75,139,0.45)",
+      }}
+    >
+      ★ BOSS ★
     </div>
   );
 }
 
 function ExplosionFX({ active }: { active: boolean }) {
-  // Cycles a handful of pixel bursts around the castle while active.
+  // Larger, more dramatic bursts cycling around the boss.
   const bursts = useMemo(
     () => [
-      { x: 12, y: 22, size: 28, delay: 0.0, color: "#ffb84a" },
-      { x: 138, y: 14, size: 24, delay: 0.25, color: "#ffd84a" },
-      { x: 64, y: -10, size: 22, delay: 0.5, color: "#ff7a3a" },
-      { x: -6, y: 70, size: 26, delay: 0.75, color: "#ffd84a" },
-      { x: 132, y: 76, size: 22, delay: 1.0, color: "#ffb84a" },
-      { x: 70, y: 100, size: 20, delay: 1.25, color: "#ff7a3a" },
+      { x: -8, y: 14, size: 52, delay: 0.0, color: "#ffb84a" },
+      { x: 134, y: 8, size: 46, delay: 0.2, color: "#ffd84a" },
+      { x: 60, y: -18, size: 56, delay: 0.45, color: "#ff7a3a" },
+      { x: -16, y: 66, size: 44, delay: 0.7, color: "#ffd84a" },
+      { x: 138, y: 72, size: 50, delay: 0.95, color: "#ffb84a" },
+      { x: 62, y: 102, size: 40, delay: 1.2, color: "#ff7a3a" },
+      { x: 28, y: 28, size: 36, delay: 1.45, color: "#fff0a0" },
+      { x: 108, y: 44, size: 38, delay: 1.7, color: "#fff0a0" },
     ],
     [],
   );
@@ -851,13 +960,13 @@ function ExplosionFX({ active }: { active: boolean }) {
           className="absolute"
           style={{ left: b.x, top: b.y }}
           initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: [0, 1.25, 1, 0], opacity: [0, 1, 0.85, 0] }}
+          animate={{ scale: [0, 1.4, 1.05, 0], opacity: [0, 1, 0.9, 0] }}
           transition={{
-            duration: 1.2,
+            duration: 1.4,
             ease: "easeOut",
             delay: b.delay,
             repeat: Infinity,
-            repeatDelay: 0.8,
+            repeatDelay: 0.6,
           }}
         >
           <PixelBurst size={b.size} color={b.color} />
@@ -886,32 +995,112 @@ function PixelBurst({ size, color }: { size: number; color: string }) {
   );
 }
 
+function MoneyFlyAway({ active }: { active: boolean }) {
+  // Little winged ¥ coins flying upward and outward, depicting wealth
+  // escaping during the boss fight.
+  const coins = useMemo(
+    () => [
+      { x: 30, drift: -50, delay: 0.0 },
+      { x: 70, drift: 60, delay: 0.35 },
+      { x: 110, drift: -30, delay: 0.7 },
+      { x: 50, drift: 40, delay: 1.05 },
+      { x: 90, drift: -70, delay: 1.4 },
+      { x: 20, drift: 30, delay: 1.75 },
+      { x: 130, drift: -20, delay: 2.1 },
+    ],
+    [],
+  );
+
+  if (!active) return null;
+  return (
+    <div className="pointer-events-none absolute left-1/2 -translate-x-1/2" style={{ top: 60, width: 160, height: 160 }}>
+      {coins.map((c, i) => (
+        <motion.div
+          key={i}
+          className="absolute"
+          style={{ left: c.x, top: 80 }}
+          initial={{ y: 0, x: 0, opacity: 0, scale: 0.6 }}
+          animate={{
+            y: [-2, -180],
+            x: [0, c.drift],
+            opacity: [0, 1, 1, 0],
+            scale: [0.6, 1, 1, 0.5],
+            rotate: [0, c.drift > 0 ? 18 : -18],
+          }}
+          transition={{
+            duration: 2.4,
+            ease: "easeOut",
+            delay: c.delay,
+            repeat: Infinity,
+            repeatDelay: 1.2,
+            times: [0, 0.15, 0.75, 1],
+          }}
+        >
+          <WingedCoin />
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+function WingedCoin() {
+  return (
+    <svg width="22" height="16" viewBox="0 0 22 16" shapeRendering="crispEdges">
+      {/* Left wing */}
+      <polygon points="0,4 4,2 4,9" fill="#fff" opacity="0.95" />
+      <polygon points="0,7 3,6 3,11" fill="#fff" opacity="0.7" />
+      {/* Right wing */}
+      <polygon points="22,4 18,2 18,9" fill="#fff" opacity="0.95" />
+      <polygon points="22,7 19,6 19,11" fill="#fff" opacity="0.7" />
+      {/* Coin body */}
+      <rect x="6" y="2" width="10" height="12" fill="#ffd84a" />
+      <rect x="6" y="2" width="10" height="2" fill="#fff0a0" />
+      <rect x="6" y="12" width="10" height="2" fill="#c89218" />
+      {/* ¥ glyph (chunky pixel) */}
+      <rect x="8" y="5" width="2" height="2" fill="#7a5208" />
+      <rect x="12" y="5" width="2" height="2" fill="#7a5208" />
+      <rect x="10" y="7" width="2" height="2" fill="#7a5208" />
+      <rect x="8" y="9" width="6" height="1" fill="#7a5208" />
+      <rect x="10" y="10" width="2" height="2" fill="#7a5208" />
+    </svg>
+  );
+}
+
 function SignBoardWithBubble({
   sign,
   pos,
   isActive,
-  isBoss,
+  boss,
 }: {
   sign: Sign;
   pos: { x: number; y: number };
   isActive: boolean;
-  isBoss?: boolean;
+  boss?: "castle" | "warrior";
 }) {
   const bubbleAbove = pos.y >= SCROLL_H / 2;
-  const width = isBoss ? 170 : 144;
+  const isBoss = !!boss;
+  const width = boss === "warrior" ? 130 : isBoss ? 170 : 144;
+  const topOffset = boss === "warrior" ? 110 : isBoss ? 96 : 4;
   return (
     <div
       className="absolute z-10"
       style={{
         left: pos.x - width / 2,
-        top: pos.y - (isBoss ? 96 : 4),
+        top: pos.y - topOffset,
         width,
       }}
     >
-      {isBoss ? (
+      {boss === "castle" ? (
         <div className="relative">
           <BossCastle />
           <ExplosionFX active={isActive} />
+          <MoneyFlyAway active={isActive} />
+        </div>
+      ) : boss === "warrior" ? (
+        <div className="relative">
+          <ArmoredWarriorBoss />
+          <ExplosionFX active={isActive} />
+          <MoneyFlyAway active={isActive} />
         </div>
       ) : (
         <SignBoard sign={sign} />
