@@ -12,12 +12,10 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-const POP_DURATION_MS = 2500;
+const POP_DURATION_MS = 3000;
 
 export function Hero() {
-  const avatarRef = useRef<HTMLDivElement>(null);
   const popTimer = useRef<number | null>(null);
-  const hasAutoPlayed = useRef(false);
   const [popping, setPopping] = useState(false);
 
   const triggerPop = () => {
@@ -32,21 +30,11 @@ export function Hero() {
   };
 
   useEffect(() => {
-    const node = avatarRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAutoPlayed.current) {
-          hasAutoPlayed.current = true;
-          triggerPop();
-        }
-      },
-      { threshold: 0.55 },
-    );
-    observer.observe(node);
     return () => {
-      observer.disconnect();
-      if (popTimer.current !== null) window.clearTimeout(popTimer.current);
+      if (popTimer.current !== null) {
+        window.clearTimeout(popTimer.current);
+        popTimer.current = null;
+      }
     };
   }, []);
 
@@ -173,7 +161,6 @@ export function Hero() {
           className="flex justify-center md:justify-end"
         >
           <div
-            ref={avatarRef}
             data-popping={popping ? "" : undefined}
             onClick={triggerPop}
             onKeyDown={(e) => {
