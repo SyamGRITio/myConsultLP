@@ -17,6 +17,7 @@ const POP_DURATION_MS = 3000;
 export function Hero() {
   const popTimer = useRef<number | null>(null);
   const [popping, setPopping] = useState(false);
+  const [isTouchOnly, setIsTouchOnly] = useState(false);
 
   const triggerPop = () => {
     if (popTimer.current !== null) {
@@ -30,6 +31,19 @@ export function Hero() {
   };
 
   useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia) {
+      const mq = window.matchMedia("(hover: none)");
+      const sync = () => setIsTouchOnly(mq.matches);
+      sync();
+      mq.addEventListener("change", sync);
+      return () => {
+        mq.removeEventListener("change", sync);
+        if (popTimer.current !== null) {
+          window.clearTimeout(popTimer.current);
+          popTimer.current = null;
+        }
+      };
+    }
     return () => {
       if (popTimer.current !== null) {
         window.clearTimeout(popTimer.current);
@@ -37,6 +51,10 @@ export function Hero() {
       }
     };
   }, []);
+
+  const handleTap = () => {
+    if (isTouchOnly) triggerPop();
+  };
 
   return (
     <section
@@ -201,17 +219,19 @@ export function Hero() {
         >
           <div
             data-popping={popping ? "" : undefined}
-            onClick={triggerPop}
+            onClick={handleTap}
             onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
+              if (isTouchOnly && (e.key === "Enter" || e.key === " ")) {
                 e.preventDefault();
                 triggerPop();
               }
             }}
-            role="button"
-            tabIndex={0}
-            aria-label="syamのアイコン。タップでアニメーション再生"
-            className="group relative mx-auto aspect-square w-full max-w-[260px] cursor-pointer md:max-w-[320px]"
+            role={isTouchOnly ? "button" : undefined}
+            tabIndex={isTouchOnly ? 0 : undefined}
+            aria-label={
+              isTouchOnly ? "syamのアイコン。タップでアニメーション再生" : undefined
+            }
+            className="group relative mx-auto aspect-square w-full max-w-[260px] md:max-w-[320px]"
           >
             <div
               className="absolute inset-0 translate-x-4 translate-y-4 rounded-lg border-2 transition-transform group-hover:translate-x-2 group-hover:translate-y-2 group-data-[popping]:translate-x-2 group-data-[popping]:translate-y-2"
