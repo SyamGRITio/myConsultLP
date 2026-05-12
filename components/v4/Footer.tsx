@@ -57,15 +57,15 @@ export function Footer() {
         </p>
       </div>
 
-      <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-3 px-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mx-auto mt-10 flex max-w-5xl flex-wrap items-stretch justify-center gap-3 px-4">
         {SOCIALS.map(({ Icon, url, label, desc }) => (
-          <li key={label}>
+          <li key={label} className="flex">
             <a
               href={url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${label} — ${desc}`}
-              className="group flex items-center gap-3 rounded-lg border-2 px-4 py-3 text-left transition-all hover:-translate-y-0.5"
+              className="group flex w-full items-center gap-3 rounded-lg border-2 px-4 py-3 text-left transition-all hover:-translate-y-0.5"
               style={{
                 borderColor: "var(--bg-tertiary)",
                 backgroundColor: "var(--bg-secondary)",
@@ -81,7 +81,7 @@ export function Footer() {
               }}
             >
               <Icon size={22} stroke={1.75} className="shrink-0" />
-              <div className="flex min-w-0 flex-col leading-tight">
+              <div className="flex flex-col leading-tight">
                 <span
                   className="text-sm font-bold"
                   style={{ color: "var(--text-headline)" }}
@@ -89,7 +89,7 @@ export function Footer() {
                   {label}
                 </span>
                 <span
-                  className="mt-0.5 font-pixel text-xs tracking-wider"
+                  className="mt-0.5 whitespace-nowrap font-pixel text-xs tracking-wider"
                   style={{ color: "var(--accent)" }}
                 >
                   【{desc}】
