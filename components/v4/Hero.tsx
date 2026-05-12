@@ -115,8 +115,12 @@ export function Hero() {
           <motion.h1
             variants={fadeUp}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="mb-4 text-5xl font-bold leading-tight md:text-7xl"
-            style={{ color: "var(--text-headline)" }}
+            className="mb-4 text-4xl font-bold leading-tight md:text-7xl"
+            style={{
+              color: "var(--text-headline)",
+              wordBreak: "keep-all",
+              overflowWrap: "break-word",
+            }}
           >
             付加価値の上げ方、
             <br />
