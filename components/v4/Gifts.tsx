@@ -40,14 +40,17 @@ export function Gifts() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <SectionHeading num="04" label="持ち帰り" />
+      <SectionHeading num="04" label="あの頃の自分に、渡したかったもの" />
 
-      <p
-        className="mb-10 max-w-2xl leading-relaxed"
+      <div
+        className="mb-10 max-w-2xl space-y-2 leading-relaxed"
         style={{ color: "var(--text-secondary)" }}
       >
-        ここまで読んでくれて、ありがとうございます。良かったら、持って帰ってください。
-      </p>
+        <p>
+          4年前の自分に渡したかった3つを、ここに置きます。無料プレゼントってやつです(笑)
+        </p>
+        <p>重ければスルーで、ピンと来たらだけ持っていってください。</p>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-3">
         {GIFTS.map(({ Icon, title, desc }) => (
