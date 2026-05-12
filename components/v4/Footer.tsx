@@ -10,20 +10,35 @@ import {
 import { LINKS } from "@/lib/constants";
 
 const SOCIALS = [
-  { Icon: IconBrandX, url: LINKS.x, label: "X", handle: "@syam_nihick" },
-  { Icon: IconBookmark, url: LINKS.note, label: "note", handle: "@syam_grit" },
-  { Icon: IconPencil, url: LINKS.zenn, label: "Zenn", handle: "@syam_nihick" },
+  {
+    Icon: IconBrandX,
+    url: LINKS.x,
+    label: "X",
+    desc: "アウトプット全般 / 告知",
+  },
+  {
+    Icon: IconBookmark,
+    url: LINKS.note,
+    label: "note",
+    desc: "キャリア / 生活",
+  },
+  {
+    Icon: IconPencil,
+    url: LINKS.zenn,
+    label: "Zenn",
+    desc: "技術発信",
+  },
   {
     Icon: IconBrandInstagram,
     url: LINKS.instagram,
     label: "Instagram",
-    handle: "@syam_gritio",
+    desc: "作ってみただけ、未定",
   },
   {
     Icon: IconBrandGithub,
     url: LINKS.github,
     label: "GitHub",
-    handle: "SyamGRITio",
+    desc: "公開リポジトリ / ポートフォリオ",
   },
 ];
 
@@ -42,14 +57,14 @@ export function Footer() {
         </p>
       </div>
 
-      <ul className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-3 px-4 sm:grid-cols-3 md:grid-cols-5">
-        {SOCIALS.map(({ Icon, url, label, handle }) => (
+      <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-3 px-4 sm:grid-cols-2 lg:grid-cols-3">
+        {SOCIALS.map(({ Icon, url, label, desc }) => (
           <li key={label}>
             <a
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${label} ${handle}`}
+              aria-label={`${label} — ${desc}`}
               className="group flex items-center gap-3 rounded-lg border-2 px-4 py-3 text-left transition-all hover:-translate-y-0.5"
               style={{
                 borderColor: "var(--bg-tertiary)",
@@ -58,24 +73,27 @@ export function Footer() {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = "var(--accent)";
-                e.currentTarget.style.color = "var(--accent)";
                 e.currentTarget.style.backgroundColor = "var(--accent-tint)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = "var(--bg-tertiary)";
-                e.currentTarget.style.color = "var(--text-secondary)";
                 e.currentTarget.style.backgroundColor = "var(--bg-secondary)";
               }}
             >
-              <Icon size={20} stroke={1.75} className="shrink-0" />
-              <div className="flex flex-col leading-tight">
+              <Icon size={22} stroke={1.75} className="shrink-0" />
+              <div className="flex min-w-0 flex-col leading-tight">
                 <span
                   className="text-sm font-bold"
                   style={{ color: "var(--text-headline)" }}
                 >
                   {label}
                 </span>
-                <span className="text-xs opacity-80">{handle}</span>
+                <span
+                  className="mt-0.5 font-pixel text-xs tracking-wider"
+                  style={{ color: "var(--accent)" }}
+                >
+                  【{desc}】
+                </span>
               </div>
             </a>
           </li>
