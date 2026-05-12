@@ -85,16 +85,52 @@ export function Hero() {
         className="relative grid items-center gap-10 md:grid-cols-[3fr_2fr]"
       >
         <div>
+          <motion.div
+            variants={fadeUp}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="mb-6 max-w-2xl"
+          >
+            <div
+              className="h-[3px] w-full"
+              style={{
+                background:
+                  "repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 14px)",
+              }}
+            />
+            <p
+              className="my-3 font-pixel text-base tracking-[0.35em] md:text-lg"
+              style={{ color: "var(--accent)" }}
+            >
+              インフラエンジニアの方へ
+            </p>
+            <div
+              className="h-[3px] w-full"
+              style={{
+                background:
+                  "repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 14px)",
+              }}
+            />
+          </motion.div>
+
           <motion.h1
             variants={fadeUp}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="mb-6 text-5xl font-bold leading-tight md:text-7xl"
+            className="mb-4 text-5xl font-bold leading-tight md:text-7xl"
             style={{ color: "var(--text-headline)" }}
           >
-            付加価値、
+            付加価値の上げ方、
             <br />
-            一緒に上げませんか。
+            知ってます。
           </motion.h1>
+
+          <motion.p
+            variants={fadeUp}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="mb-8 text-2xl font-bold leading-snug md:text-4xl"
+            style={{ color: "var(--accent-pink)" }}
+          >
+            たぶん、再現できます。
+          </motion.p>
 
           <motion.div
             variants={fadeUp}
@@ -105,7 +141,6 @@ export function Hero() {
             <p>月給14万から始めて、毎年100万ずつ年収を上げてきた。</p>
             <p>今では月単価101万＋α。借金300万を返して、資格を30個取った。</p>
             <p>Xには化け物みたいな人がいる中、私は最小限の努力でここまで来ました。</p>
-            <p>たぶん、再現できます。</p>
           </motion.div>
 
           <motion.div
