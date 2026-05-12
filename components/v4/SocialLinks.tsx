@@ -63,6 +63,8 @@ export function SocialLinks() {
                 color: "var(--accent)",
                 borderColor: "var(--accent)",
                 opacity: 0.8,
+                wordBreak: "keep-all",
+                overflowWrap: "break-word",
               }}
             >
               【{desc}】
