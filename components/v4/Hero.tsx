@@ -122,25 +122,29 @@ export function Hero() {
           <motion.h1
             variants={fadeUp}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="mb-4 text-4xl font-bold leading-tight md:text-7xl"
+            className="mb-4 text-3xl font-bold leading-tight md:text-6xl"
             style={{
               color: "var(--text-headline)",
               wordBreak: "keep-all",
               overflowWrap: "break-word",
             }}
           >
-            付加価値の上げ方、
+            あなたの収入、
             <br />
-            知ってます。
+            上げさせてください。
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="mb-8 text-2xl font-bold leading-snug md:text-4xl"
-            style={{ color: "var(--accent-pink)" }}
+            style={{
+              color: "var(--accent-pink)",
+              wordBreak: "keep-all",
+              overflowWrap: "break-word",
+            }}
           >
-            たぶん、再現できます。
+            お金は取りません
           </motion.p>
 
           <motion.div
