@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { SectionHeading } from "./SectionHeading";
 
@@ -39,8 +38,6 @@ const TABS: Tab[] = [
 ];
 
 export function Philosophy() {
-  const [active, setActive] = useState(0);
-
   return (
     <motion.section
       id="philosophy"
@@ -52,52 +49,38 @@ export function Philosophy() {
     >
       <SectionHeading num="02" label="3つだけ、信じていること" />
 
-      <div className="flex max-w-4xl flex-col gap-6 md:flex-row">
-        <ul className="flex list-none overflow-x-auto md:flex-col md:overflow-visible">
-          {TABS.map((tab, i) => {
-            const isActive = i === active;
-            return (
-              <li key={tab.num}>
-                <button
-                  type="button"
-                  onClick={() => setActive(i)}
-                  className="whitespace-nowrap px-5 py-3 text-left font-mono text-sm transition-colors"
-                  style={{
-                    borderBottomWidth: 2,
-                    borderColor: isActive
-                      ? "var(--accent)"
-                      : "var(--bg-tertiary)",
-                    color: isActive
-                      ? "var(--accent)"
-                      : "var(--text-secondary)",
-                    backgroundColor: isActive
-                      ? "var(--accent-tint)"
-                      : "transparent",
-                  }}
-                >
-                  <span className="font-pixel text-base">{tab.num}</span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-
-        <div
-          className="flex-1 space-y-4 leading-relaxed"
-          style={{ color: "var(--text-secondary)" }}
-        >
-          <h3
-            className="text-xl font-bold"
-            style={{ color: "var(--text-headline)" }}
+      <div className="grid max-w-5xl gap-6 md:grid-cols-3">
+        {TABS.map((tab) => (
+          <article
+            key={tab.num}
+            className="flex flex-col rounded-lg border p-6"
+            style={{
+              borderColor: "var(--bg-tertiary)",
+              backgroundColor: "var(--bg-secondary)",
+            }}
           >
-            {TABS[active].title}
-          </h3>
-          <div className="space-y-3">
-            {TABS[active].body.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-        </div>
+            <span
+              className="font-pixel text-2xl"
+              style={{ color: "var(--accent)" }}
+            >
+              {tab.num}
+            </span>
+            <h3
+              className="mb-4 mt-2 text-lg font-bold leading-snug"
+              style={{ color: "var(--text-headline)" }}
+            >
+              {tab.title}
+            </h3>
+            <div
+              className="space-y-3 text-sm leading-relaxed"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              {tab.body.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </article>
+        ))}
       </div>
     </motion.section>
   );

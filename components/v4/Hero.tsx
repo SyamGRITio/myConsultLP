@@ -41,6 +41,13 @@ export function Hero() {
   const [hovered, setHovered] = useState(false);
   const showHover = hovered || popping;
 
+  // Preload the hover variant once on mount so swapping the src doesn't
+  // cause a flash of unloaded image on first hover.
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = "/avatar-hover.png";
+  }, []);
+
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== "mouse") triggerPop();
   };
@@ -50,6 +57,28 @@ export function Hero() {
       id="hero"
       className="relative flex min-h-screen flex-col justify-center pt-20"
     >
+      {/* S1: シーン設定バナー — 流入経路に依存せず「誰向け / 何を提供」を即提示 */}
+      <div
+        className="mb-6 flex flex-wrap items-center gap-3 rounded-md border-2 px-4 py-3"
+        style={{
+          borderColor: "var(--accent)",
+          backgroundColor: "var(--accent-tint)",
+        }}
+      >
+        <span
+          className="font-pixel text-xs tracking-widest"
+          style={{ color: "var(--accent)" }}
+        >
+          ▶ FOR
+        </span>
+        <span
+          className="text-sm md:text-base"
+          style={{ color: "var(--text-headline)" }}
+        >
+          {"{{ シーン設定コピー未定 — 例: 運用保守・SES在籍の20代エンジニア向け }}"}
+        </span>
+      </div>
+
       <div className="relative mb-12 h-32 overflow-hidden rounded-lg md:h-48">
         <Image
           src="/pixel-city-sunset.png"
@@ -159,29 +188,52 @@ export function Hero() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="flex flex-col items-start gap-4"
           >
-            <Link
-              href={withUtm(LINKS.line, "hero", "cta")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-md border px-8 py-4 font-mono transition-colors"
-              style={{
-                borderColor: "var(--accent)",
-                color: "var(--accent)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "var(--accent-tint)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-              }}
-            >
-              ちょっと話してみる
-            </Link>
+            {/* S5: CTA は主+第2の並列構造 */}
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href={withUtm(LINKS.line, "hero", "cta")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-md border px-8 py-4 font-mono transition-colors"
+                style={{
+                  borderColor: "var(--accent)",
+                  color: "var(--accent)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--accent-tint)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
+              >
+                ちょっと話してみる
+              </Link>
+              {/* S5: 第2CTAスロット — ラベル・遷移先未定 */}
+              <Link
+                href="#"
+                className="inline-block rounded-md border px-8 py-4 font-mono text-sm transition-colors"
+                style={{
+                  borderColor: "var(--text-secondary)",
+                  color: "var(--text-secondary)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "var(--accent)";
+                  e.currentTarget.style.color = "var(--accent)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "var(--text-secondary)";
+                  e.currentTarget.style.color = "var(--text-secondary)";
+                }}
+              >
+                {"{{ 第2CTA未定 }}"}
+              </Link>
+            </div>
+            {/* S6: 登録後説明スロット */}
             <p
-              className="text-sm"
+              className="text-sm leading-relaxed"
               style={{ color: "var(--text-secondary)" }}
             >
-              今は無料相談だけ。近いうちに、有料のAzureコーチングを始めようと思っています。
+              {"{{ 登録後の体験説明 未定 — 例: 営業しません。配信物の予告など }}"}
             </p>
           </motion.div>
 
@@ -229,29 +281,15 @@ export function Hero() {
               }}
             >
               <Image
-                src="/avatar.png"
+                src={showHover ? "/avatar-hover.png" : "/avatar.png"}
                 alt="syam"
                 fill
+                priority
                 sizes="(min-width: 768px) 320px, 260px"
-                className="object-contain transition-opacity duration-200 ease-out"
-                style={{
-                  imageRendering: "pixelated",
-                  opacity: showHover ? 0 : 1,
-                }}
-              />
-              <Image
-                src="/avatar-hover.png"
-                alt=""
-                aria-hidden
-                fill
-                sizes="(min-width: 768px) 320px, 260px"
-                className={`object-contain transition-opacity duration-200 ease-out ${
+                className={`object-contain ${
                   showHover ? "motion-safe:animate-avatar-pop" : ""
                 }`}
-                style={{
-                  imageRendering: "pixelated",
-                  opacity: showHover ? 1 : 0,
-                }}
+                style={{ imageRendering: "pixelated" }}
               />
             </div>
           </div>

@@ -76,11 +76,26 @@ const SIGNS: Sign[] = [
   },
   {
     num: "11",
-    year: "2026.4",
+    year: "__NOW__",
     title: "NOW",
     body: "月単価101万＋α。来月から副業と友人企業のインフラ顧問も加わり、ありがたく引く手あまた状態。",
   },
 ];
+
+// 「私について」セクションの見出しはここで一元管理。
+// 必要なら以下の文字列だけ書き換えれば、Journey 全体の見出しが変わる。
+const SECTION_TITLE = "私について";
+const SECTION_SUBTITLE_TOP = "月給13万までの、ちょっと長い助走";
+const SECTION_SUBTITLE_BOTTOM = "今のところ、引く手あまた";
+
+function currentYearMonth(): string {
+  const now = new Date();
+  return `${now.getFullYear()}.${now.getMonth() + 1}`;
+}
+
+function displayYear(year: string): string {
+  return year === "__NOW__" ? currentYearMonth() : year;
+}
 
 const SCROLL_W = 5400;
 const SCROLL_H = 720;
@@ -191,20 +206,20 @@ export function Journey() {
         className="mb-3 text-2xl font-bold md:text-3xl"
         style={{ color: "var(--text-headline)" }}
       >
-        私について
+        {SECTION_TITLE}
       </h2>
       <div className="mb-10 space-y-1">
         <p
           className="text-lg font-bold md:text-xl"
           style={{ color: "var(--text-headline)" }}
         >
-          月給13万までの、ちょっと長い助走
+          {SECTION_SUBTITLE_TOP}
         </p>
         <p
           className="text-sm md:text-base"
           style={{ color: "var(--text-secondary)" }}
         >
-          今のところ、引く手あまた
+          {SECTION_SUBTITLE_BOTTOM}
         </p>
       </div>
 
@@ -708,7 +723,7 @@ function SignBoard({ sign }: { sign: Sign }) {
           boxShadow: "1px 1px 0 #1a1008",
         }}
       >
-        {sign.year}
+        {displayYear(sign.year)}
       </div>
 
       {/* Wooden plank panel */}
@@ -923,6 +938,23 @@ function ArmoredWarriorBoss() {
   );
 }
 
+function BossYearBanner({ year, title }: { year: string; title: string }) {
+  return (
+    <div
+      className="z-10 -mb-1 flex items-center gap-2 rounded-sm border px-2 py-0.5 font-pixel text-[10px] tracking-wider text-[#ffe6b3]"
+      style={{
+        backgroundColor: "#5a3416",
+        borderColor: "#2a1408",
+        boxShadow: "1px 1px 0 #1a1008",
+      }}
+    >
+      <span>{year}</span>
+      <span className="opacity-60">|</span>
+      <span>{title}</span>
+    </div>
+  );
+}
+
 function BossNameplate() {
   return (
     <div
@@ -1084,7 +1116,7 @@ function SignBoardWithBubble({
   const bubbleAbove = pos.y >= SCROLL_H / 2;
   const isBoss = !!boss;
   const width = boss === "warrior" ? 130 : isBoss ? 170 : 144;
-  const topOffset = boss === "warrior" ? 110 : isBoss ? 96 : 4;
+  const topOffset = boss === "warrior" ? 132 : isBoss ? 118 : 4;
   return (
     <div
       className="absolute z-10"
@@ -1094,15 +1126,10 @@ function SignBoardWithBubble({
         width,
       }}
     >
-      {boss === "castle" ? (
-        <div className="relative">
-          <BossCastle />
-          <ExplosionFX active={isActive} />
-          <MoneyFlyAway active={isActive} />
-        </div>
-      ) : boss === "warrior" ? (
-        <div className="relative">
-          <ArmoredWarriorBoss />
+      {boss ? (
+        <div className="relative flex flex-col items-center">
+          <BossYearBanner year={displayYear(sign.year)} title={sign.title} />
+          {boss === "castle" ? <BossCastle /> : <ArmoredWarriorBoss />}
           <ExplosionFX active={isActive} />
           <MoneyFlyAway active={isActive} />
         </div>
@@ -1172,7 +1199,7 @@ function Bubble({
         }}
       >
         <div className="mb-1 flex items-center gap-2 text-[10px] text-[#9ecbff]">
-          <span>{year}</span>
+          <span>{displayYear(year)}</span>
           <span className="opacity-50">|</span>
           <span>{title}</span>
         </div>

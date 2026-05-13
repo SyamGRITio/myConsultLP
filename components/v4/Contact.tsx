@@ -26,8 +26,6 @@ export function Contact() {
         style={{ color: "var(--text-secondary)" }}
       >
         LINEで一言ください。XのDMでも全然OK。
-        <br />
-        今は無料相談だけ。近いうちに、有料のAzureコーチングを始めようと思っています。
       </p>
 
       <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -71,7 +69,34 @@ export function Contact() {
           <IconBrandX size={20} stroke={1.5} />
           XのDMでも気軽に
         </Link>
+        {/* S5: 第2CTAスロット — ラベル・遷移先未定 */}
+        <Link
+          href="#"
+          className="inline-flex items-center gap-2 rounded-md border px-10 py-5 font-mono text-sm transition-colors"
+          style={{
+            borderColor: "var(--text-secondary)",
+            color: "var(--text-secondary)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "var(--accent)";
+            e.currentTarget.style.color = "var(--accent)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "var(--text-secondary)";
+            e.currentTarget.style.color = "var(--text-secondary)";
+          }}
+        >
+          {"{{ 第2CTA未定 }}"}
+        </Link>
       </div>
+
+      {/* S6: 登録後説明スロット */}
+      <p
+        className="mt-8 text-sm leading-relaxed"
+        style={{ color: "var(--text-secondary)" }}
+      >
+        {"{{ 登録後の体験説明 未定 — 例: 営業しません。週1で○○を配信、など }}"}
+      </p>
     </motion.section>
   );
 }
