@@ -38,6 +38,9 @@ export function Hero() {
     };
   }, []);
 
+  const [hovered, setHovered] = useState(false);
+  const showHover = hovered || popping;
+
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== "mouse") triggerPop();
   };
@@ -204,13 +207,19 @@ export function Hero() {
           className="flex justify-center md:justify-end"
         >
           <div
-            data-popping={popping ? "" : undefined}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
             onPointerUp={handlePointerUp}
-            className="group relative mx-auto aspect-square w-full max-w-[260px] md:max-w-[320px]"
+            className="relative mx-auto aspect-square w-full max-w-[260px] md:max-w-[320px]"
           >
             <div
-              className="absolute inset-0 translate-x-4 translate-y-4 rounded-lg border-2 transition-transform group-hover:translate-x-2 group-hover:translate-y-2 group-data-[popping]:translate-x-2 group-data-[popping]:translate-y-2"
-              style={{ borderColor: "var(--accent)" }}
+              className="absolute inset-0 rounded-lg border-2 transition-transform"
+              style={{
+                borderColor: "var(--accent)",
+                transform: showHover
+                  ? "translate(0.5rem, 0.5rem)"
+                  : "translate(1rem, 1rem)",
+              }}
             />
             <div
               className="relative h-full w-full overflow-hidden rounded-lg"
@@ -224,8 +233,11 @@ export function Hero() {
                 alt="syam"
                 fill
                 sizes="(min-width: 768px) 320px, 260px"
-                className="object-contain transition-opacity duration-200 ease-out group-hover:opacity-0 group-data-[popping]:opacity-0"
-                style={{ imageRendering: "pixelated" }}
+                className="object-contain transition-opacity duration-200 ease-out"
+                style={{
+                  imageRendering: "pixelated",
+                  opacity: showHover ? 0 : 1,
+                }}
               />
               <Image
                 src="/avatar-hover.png"
@@ -233,8 +245,13 @@ export function Hero() {
                 aria-hidden
                 fill
                 sizes="(min-width: 768px) 320px, 260px"
-                className="object-contain opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 group-data-[popping]:opacity-100 motion-safe:group-hover:animate-avatar-pop motion-safe:group-data-[popping]:animate-avatar-pop"
-                style={{ imageRendering: "pixelated" }}
+                className={`object-contain transition-opacity duration-200 ease-out ${
+                  showHover ? "motion-safe:animate-avatar-pop" : ""
+                }`}
+                style={{
+                  imageRendering: "pixelated",
+                  opacity: showHover ? 1 : 0,
+                }}
               />
             </div>
           </div>
