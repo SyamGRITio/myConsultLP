@@ -28,12 +28,11 @@ export function TalkAbout() {
         {TOPICS.map((topic) => (
           <li
             key={topic}
-            className="flex items-start gap-3 leading-relaxed"
+            className="flex items-start gap-3"
             style={{ color: "var(--text-primary)" }}
           >
             <span
-              aria-hidden
-              className="shrink-0 font-mono text-base leading-relaxed"
+              className="mt-1 font-mono text-xs"
               style={{ color: "var(--accent)" }}
             >
               ▹

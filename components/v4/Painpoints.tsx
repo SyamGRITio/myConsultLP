@@ -7,8 +7,6 @@ const QUESTIONS = [
   { num: "02", text: "SES／SIerで、指示待ちの毎日が続いている" },
   { num: "03", text: "AIに乗りたいけど、何から触ればいいか分からない" },
   { num: "04", text: "フリーランスに興味はあるけど、勇気が出ない" },
-  { num: "05", text: "{{ ペインポイント05 コピー未定 }}" },
-  { num: "06", text: "{{ ペインポイント06 コピー未定 }}" },
 ];
 
 export function Painpoints() {
