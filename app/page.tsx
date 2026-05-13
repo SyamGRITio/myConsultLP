@@ -3,6 +3,7 @@ import { Painpoints } from "@/components/v4/Painpoints";
 import { Journey } from "@/components/v4/Journey";
 import { Philosophy } from "@/components/v4/Philosophy";
 import { Gifts } from "@/components/v4/Gifts";
+import { Activities } from "@/components/v4/Activities";
 import { TalkAbout } from "@/components/v4/TalkAbout";
 import { Flow } from "@/components/v4/Flow";
 import { Contact } from "@/components/v4/Contact";
@@ -17,6 +18,7 @@ export default function Home() {
       <Journey />
       <Philosophy />
       <Gifts />
+      <Activities />
       <TalkAbout />
       <Flow />
       <Contact />
