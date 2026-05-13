@@ -17,7 +17,6 @@ const POP_DURATION_MS = 3000;
 export function Hero() {
   const popTimer = useRef<number | null>(null);
   const [popping, setPopping] = useState(false);
-  const [isTouchOnly, setIsTouchOnly] = useState(false);
 
   const triggerPop = () => {
     if (popTimer.current !== null) {
@@ -31,19 +30,6 @@ export function Hero() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia) {
-      const mq = window.matchMedia("(hover: none)");
-      const sync = () => setIsTouchOnly(mq.matches);
-      sync();
-      mq.addEventListener("change", sync);
-      return () => {
-        mq.removeEventListener("change", sync);
-        if (popTimer.current !== null) {
-          window.clearTimeout(popTimer.current);
-          popTimer.current = null;
-        }
-      };
-    }
     return () => {
       if (popTimer.current !== null) {
         window.clearTimeout(popTimer.current);
@@ -52,8 +38,8 @@ export function Hero() {
     };
   }, []);
 
-  const handleTap = () => {
-    if (isTouchOnly) triggerPop();
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") triggerPop();
   };
 
   return (
@@ -219,18 +205,7 @@ export function Hero() {
         >
           <div
             data-popping={popping ? "" : undefined}
-            onClick={handleTap}
-            onKeyDown={(e) => {
-              if (isTouchOnly && (e.key === "Enter" || e.key === " ")) {
-                e.preventDefault();
-                triggerPop();
-              }
-            }}
-            role={isTouchOnly ? "button" : undefined}
-            tabIndex={isTouchOnly ? 0 : undefined}
-            aria-label={
-              isTouchOnly ? "syamのアイコン。タップでアニメーション再生" : undefined
-            }
+            onPointerUp={handlePointerUp}
             className="group relative mx-auto aspect-square w-full max-w-[260px] md:max-w-[320px]"
           >
             <div
