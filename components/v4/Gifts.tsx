@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   IconFileText,
@@ -11,6 +10,7 @@ import {
 } from "@tabler/icons-react";
 import { LINKS, withUtm } from "@/lib/constants";
 import { SectionHeading } from "./SectionHeading";
+import { CtaLink } from "./CtaLink";
 
 const GIFTS = [
   {
@@ -119,10 +119,10 @@ export function Gifts() {
         </ol>
 
         <div className="mt-6 flex flex-wrap items-center gap-4">
-          <Link
+          <CtaLink
             href={withUtm(LINKS.line, "gifts", "cta")}
-            target="_blank"
-            rel="noopener noreferrer"
+            cta_location="gifts"
+            destination="line"
             className="inline-flex items-center gap-2 rounded-md border px-6 py-3 font-mono text-sm transition-colors"
             style={{
               borderColor: "var(--accent)",
@@ -137,17 +137,17 @@ export function Gifts() {
           >
             <IconBrandLine size={18} stroke={2} />
             LINEを友だち追加して資料を受け取る
-          </Link>
-          <Link
+          </CtaLink>
+          <CtaLink
             href={withUtm(LINKS.x, "gifts", "dm")}
-            target="_blank"
-            rel="noopener noreferrer"
+            cta_location="gifts"
+            destination="x_dm"
             className="inline-flex items-center gap-2 font-mono text-sm transition-colors hover:text-[var(--accent)]"
             style={{ color: "var(--text-secondary)" }}
           >
             <IconBrandX size={16} stroke={1.5} />
             XのDMでも気軽に
-          </Link>
+          </CtaLink>
         </div>
 
         <p

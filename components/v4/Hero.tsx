@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { LINKS, withUtm } from "@/lib/constants";
 import { PixelCloud } from "@/components/pixel/PixelCloud";
+import { CtaLink } from "@/components/v4/CtaLink";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -163,10 +163,10 @@ export function Hero() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="flex flex-col items-start gap-4"
           >
-            <Link
+            <CtaLink
               href={withUtm(LINKS.line, "hero", "cta")}
-              target="_blank"
-              rel="noopener noreferrer"
+              cta_location="hero"
+              destination="line"
               className="inline-block rounded-md border px-8 py-4 font-mono transition-colors"
               style={{
                 borderColor: "var(--accent)",
@@ -180,7 +180,7 @@ export function Hero() {
               }}
             >
               ちょっと話してみる
-            </Link>
+            </CtaLink>
             <p
               className="text-sm"
               style={{ color: "var(--text-secondary)" }}
