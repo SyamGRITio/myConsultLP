@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useScroll } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { LINKS, withUtm } from "@/lib/constants";
+import { CtaLink } from "@/components/v4/CtaLink";
 
 type Sign = {
   num: string;
@@ -321,10 +321,10 @@ export function Journey() {
         >
           あなたにはあなたの冒険がある。これから向かいたい先を教えてくれませんか？
         </p>
-        <Link
+        <CtaLink
           href={withUtm(LINKS.line, "journey", "cta")}
-          target="_blank"
-          rel="noopener noreferrer"
+          cta_location="journey"
+          destination="line"
           className="group relative inline-flex items-center gap-3 px-7 py-4 font-pixel text-base tracking-widest transition-transform hover:-translate-y-0.5 md:text-lg"
           style={{
             backgroundColor: "#0a0820",
@@ -342,7 +342,7 @@ export function Journey() {
             ▶
           </span>
           <span>ちょっと話してみる</span>
-        </Link>
+        </CtaLink>
       </div>
     </motion.section>
   );

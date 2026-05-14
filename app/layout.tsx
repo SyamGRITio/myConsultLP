@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Layout } from "@/components/v4/Layout";
+import { SiteAnalytics } from "@/components/v4/SiteAnalytics";
 
 const description =
   "月給13万から始めて、毎年100万ずつ年収を上げてきた。今では月単価101万＋α。たぶん、再現できます。";
@@ -38,6 +39,7 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <Layout>{children}</Layout>
+        <SiteAnalytics />
       </body>
     </html>
   );

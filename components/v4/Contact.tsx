@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconBrandLine, IconBrandX } from "@tabler/icons-react";
 import { LINKS, withUtm } from "@/lib/constants";
+import { CtaLink } from "./CtaLink";
 
 export function Contact() {
   return (
@@ -31,10 +31,10 @@ export function Contact() {
       </p>
 
       <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <Link
+        <CtaLink
           href={withUtm(LINKS.line, "contact", "cta")}
-          target="_blank"
-          rel="noopener noreferrer"
+          cta_location="contact"
+          destination="line"
           className="inline-flex items-center gap-2 rounded-md border px-10 py-5 font-mono transition-colors"
           style={{
             borderColor: "var(--accent)",
@@ -49,11 +49,11 @@ export function Contact() {
         >
           <IconBrandLine size={20} stroke={1.5} />
           LINEに登録する
-        </Link>
-        <Link
+        </CtaLink>
+        <CtaLink
           href={withUtm(LINKS.x, "contact", "dm")}
-          target="_blank"
-          rel="noopener noreferrer"
+          cta_location="contact"
+          destination="x_dm"
           className="inline-flex items-center gap-2 rounded-md border px-10 py-5 font-mono transition-colors"
           style={{
             borderColor: "var(--text-secondary)",
@@ -70,7 +70,7 @@ export function Contact() {
         >
           <IconBrandX size={20} stroke={1.5} />
           XのDMでも気軽に
-        </Link>
+        </CtaLink>
       </div>
     </motion.section>
   );
