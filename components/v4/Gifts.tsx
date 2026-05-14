@@ -99,7 +99,7 @@ export function Gifts() {
         <ol className="mt-4 space-y-2 text-sm">
           {[
             "LINEを友だち追加",
-            "「資料ください」と送信",
+            "「参考資料」と送信",
             "その場でPDF・記事リンクが届きます",
           ].map((step, i) => (
             <li
