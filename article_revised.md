@@ -556,12 +556,12 @@ FO で切り替えるところまでは情報も多いですが、**復旧後に
 flowchart LR
     A["GZRS<br>(平常時)"] -->|非計画FO| B["LRS<br>(新プライマリ単独)"]
     B -->|"LRS→GRS変換<br>(ZRS/GZRSへの直接変換不可)"| C["GRS<br>(同期復活)"]
-    C -->|"非計画FO<br>(本案件は計画FO不可)"| D["LRS<br>(元プライマリ復帰)"]
+    C -->|"非計画FO<br>(本依頼は計画FO不可)"| D["LRS<br>(元プライマリ復帰)"]
     D -->|"GRS→GZRS<br>変換リクエスト送信"| E["GZRS<br>(平常状態に復帰)"]
 ```
 
 :::message alert
-**本案件特有の制約**：先述の「コラム：計画 FO がほぼ押せない構造」のとおり、本案件は Operational Backup PITR を使う関係で計画 FO がブロックされます。結果、**FB も非計画 FO** になり、戻した先でまた LRS から GRS、そして再度 GZRS への変換リクエスト、という手順を踏む必要があります。「データ損失ゼロの計画 FB はできない」前提で運用ランブックを組みました。
+**本依頼特有の制約**：先述の「コラム：計画 FO がほぼ押せない構造」のとおり、本依頼は Operational Backup PITR を使う関係で計画 FO がブロックされます。結果、**FB も非計画 FO** になり、戻した先でまた LRS から GRS、そして再度 GZRS への変換リクエスト、という手順を踏む必要があります。「データ損失ゼロの計画 FB はできない」前提で運用ランブックを組みました。
 :::
 
 参考：[Microsoft Learn：Azure Storage アカウントの顧客管理対象による計画外フェールオーバーのしくみ](https://learn.microsoft.com/ja-jp/azure/storage/common/storage-failover-customer-managed-unplanned)、[Azure Storage フェールオーバーに関する FAQ](https://learn.microsoft.com/ja-jp/azure/storage/common/storage-failover-faq)
