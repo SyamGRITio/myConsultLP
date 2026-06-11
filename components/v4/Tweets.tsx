@@ -6,6 +6,7 @@ import { Tweet } from "react-tweet";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { TWEET_IDS } from "@/lib/constants";
 import { SectionHeading } from "./SectionHeading";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const AUTO_ADVANCE_MS = 5000;
 const SWIPE_THRESHOLD = 50;
@@ -82,7 +83,25 @@ export function Tweets() {
             className="absolute inset-0 cursor-grab touch-pan-y overflow-y-auto px-2 active:cursor-grabbing"
           >
             <div data-theme="dark" className="tweet-container">
-              <Tweet id={TWEET_IDS[current]} />
+              <ErrorBoundary
+                key={TWEET_IDS[current]}
+                fallback={
+                  <div
+                    className="rounded-md border p-6 text-center text-sm"
+                    style={{
+                      borderColor: "var(--bg-tertiary)",
+                      backgroundColor: "var(--bg-secondary)",
+                      color: "var(--text-secondary)",
+                    }}
+                  >
+                    このツイートは表示できませんでした。
+                    <br />
+                    左右のボタンで次のツイートへどうぞ。
+                  </div>
+                }
+              >
+                <Tweet id={TWEET_IDS[current]} />
+              </ErrorBoundary>
             </div>
           </motion.div>
         </div>
