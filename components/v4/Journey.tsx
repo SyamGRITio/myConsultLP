@@ -88,13 +88,13 @@ const SECTION_TITLE = "私について";
 const SECTION_SUBTITLE_TOP = "月給13万までの、ちょっと長い助走";
 const SECTION_SUBTITLE_BOTTOM = "今のところ、引く手あまた";
 
-function currentYearMonth(): string {
-  const now = new Date();
-  return `${now.getFullYear()}.${now.getMonth() + 1}`;
-}
+// 「NOW」の表示。new Date() を使うと SSR と CSR の境目で年月がズレた瞬間に
+// React error #418（hydration mismatch）で LP 全体がクラッシュするため、
+// あえて静的文字列で持つ。月が変わったらここを書き換える。
+const CURRENT_YEAR_MONTH = "2026.6";
 
 function displayYear(year: string): string {
-  return year === "__NOW__" ? currentYearMonth() : year;
+  return year === "__NOW__" ? CURRENT_YEAR_MONTH : year;
 }
 
 const SCROLL_W = 5400;
